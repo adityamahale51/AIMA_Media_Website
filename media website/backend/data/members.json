@@ -1,0 +1,128 @@
+[
+  {
+    "id": "m001",
+    "name": "BABULAL PALEI",
+    "shortName": "BABULAL ..",
+    "avatar": "https://aimamedia.org/fotos/aimaself/_self203414.jpg",
+    "location": "Orissa (OR)",
+    "state": "Orissa",
+    "isActive": true
+  },
+  {
+    "id": "m002",
+    "name": "Kuldeep Singh",
+    "shortName": "Kuldeep ..",
+    "avatar": "https://aimamedia.org/fotos/aimaself/_self51664.jpg",
+    "location": "Uttar Pradesh (UP)",
+    "state": "Uttar Pradesh",
+    "isActive": true
+  },
+  {
+    "id": "m003",
+    "name": "Bhatt Harikrushna Priyavadan",
+    "shortName": "Bhatt Ha..",
+    "avatar": "https://aimamedia.org/fotos/aimaself/_self156168.jpg",
+    "location": "Gujarat (GJ)",
+    "state": "Gujarat",
+    "isActive": true
+  },
+  {
+    "id": "m004",
+    "name": "Sheikh Shahwaz Usmani",
+    "shortName": "Sheikh S..",
+    "avatar": "https://aimamedia.org/fotos/aimaself/_self187923.jpg",
+    "location": "Madhya Pradesh (MP)",
+    "state": "Madhya Pradesh",
+    "isActive": true
+  },
+  {
+    "id": "m005",
+    "name": "Rajendra",
+    "shortName": "Rajendra",
+    "avatar": "https://ui-avatars.com/api/?name=Rajendra&background=1a237e&color=fff&size=160",
+    "location": "Madhya Pradesh (MP)",
+    "state": "Madhya Pradesh",
+    "isActive": true
+  },
+  {
+    "id": "m006",
+    "name": "Jay Prakash Verma",
+    "shortName": "Jay Prak..",
+    "avatar": "https://ui-avatars.com/api/?name=Jay+Prakash+Verma&background=c62828&color=fff&size=160",
+    "location": "Uttar Pradesh (UP)",
+    "state": "Uttar Pradesh",
+    "isActive": true
+  },
+  {
+    "id": "m007",
+    "name": "Mahesh Sharma",
+    "shortName": "Mahesh S..",
+    "avatar": "https://ui-avatars.com/api/?name=Mahesh+Sharma&background=1a237e&color=fff&size=160",
+    "location": "Uttar Pradesh (UP)",
+    "state": "Uttar Pradesh",
+    "isActive": false
+  },
+  {
+    "id": "m008",
+    "name": "Navneet Kumar",
+    "shortName": "Navneet ..",
+    "avatar": "https://aimamedia.org/fotos/aimaself/_self22inbound5839734774398350429.jpg",
+    "location": "Uttar Pradesh (UP)",
+    "state": "Uttar Pradesh",
+    "isActive": false
+  },
+  {
+    "id": "m009",
+    "name": "Atul Kumar Tyagi",
+    "shortName": "Atul Kum..",
+    "avatar": "https://aimamedia.org/fotos/aimaself/_self103305.jpg",
+    "location": "Uttar Pradesh (UP)",
+    "state": "Uttar Pradesh",
+    "isActive": false
+  },
+  {
+    "id": "m010",
+    "name": "Manoj Sharma",
+    "shortName": "Manoj Sh..",
+    "avatar": "https://aimamedia.org/fotos/aimaself/_self4401003062372.jpg",
+    "location": "Chandigarh (CH)",
+    "state": "Chandigarh",
+    "isActive": false
+  },
+  {
+    "id": "m011",
+    "name": "Pramod Bhargav",
+    "shortName": "Pramod B..",
+    "avatar": "https://aimamedia.org/fotos/aimaself/_self3811000341342.jpg",
+    "location": "Rajasthan (RJ)",
+    "state": "Rajasthan",
+    "isActive": false
+  },
+  {
+    "id": "m012",
+    "name": "Raj Kumar Sharma",
+    "shortName": "Raj Kuma..",
+    "avatar": "https://ui-avatars.com/api/?name=Raj+Kumar+Sharma&background=2e7d32&color=fff&size=160",
+    "location": "Chandigarh (CH)",
+    "state": "Chandigarh",
+    "isActive": false
+  },
+  {
+    "id": "m013",
+    "name": "Kaidapu Raghunath",
+    "shortName": "Kaidapu ..",
+    "avatar": "https://aimamedia.org/fotos/aimaself/_self187530.jpg",
+    "location": "Telangana (TL)",
+    "state": "Telangana",
+    "isActive": false
+  },
+  {
+    "id": "m014",
+    "name": "Burra Kirankumara",
+    "shortName": "Burra Ki..",
+    "avatar": "https://aimamedia.org/fotos/aimaself/_self60796.jpg",
+    "location": "Telangana (TL)",
+    "state": "Telangana",
+    "isActive": false
+  }
+]
