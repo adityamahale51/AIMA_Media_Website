@@ -24,8 +24,20 @@ const path = require('path');
 // serve uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Multer error handler to give precise error messages
+app.use((err, req, res, next) => {
+	if (err && err.name === 'MulterError') {
+		// send clearer multer errors
+		const message = err.code ? `${err.code}: ${err.message}` : err.message;
+		return res.status(400).json({ success: false, message });
+	}
+	next(err);
+});
+
 const userRoutes = require('./routes/userRoutes');
 app.use('/api/users', userRoutes);
+const newsRoutes = require('./routes/newsRoutes');
+app.use('/api/news', newsRoutes);
 
 app.get('/', (req, res) => res.send({ success: true, message: 'API running' }));
 

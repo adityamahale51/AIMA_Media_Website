@@ -9,6 +9,9 @@ import Contact from './pages/Contact';
 import Members from './pages/Members';
 import Gallery from './pages/Gallery';
 import NewsUpload from './pages/NewsUpload';
+import NewsList from './pages/news/NewsList';
+import NewsDetails from './pages/news/NewsDetails';
+import CreateNews from './pages/news/CreateNews';
 import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
 import Admin from './pages/Admin';
@@ -39,6 +42,9 @@ export default function App() {
           <Route path="/members" element={<Members />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/news-upload" element={<NewsUpload />} />
+          <Route path="/news" element={<NewsList />} />
+          <Route path="/news/create" element={<CreateNews />} />
+          <Route path="/news/:id" element={<NewsDetails />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/admin" element={<Admin />} />

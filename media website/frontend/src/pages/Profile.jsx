@@ -446,7 +446,7 @@ const detailFields = (user, fullName) => [
   { label:'Email',          value:user.email },
   { label:'Mobile',         value:user.mobile },
   { label:'State',          value:user.state },
-  { label:'City',           value:user.city },
+  { label:'District',       value:user.district },
   { label:'Organization',   value:user.organization },
   { label:'Designation',    value:user.designation },
   { label:'Membership ID',  value:user.membershipId },
@@ -521,17 +521,17 @@ export default function Profile() {
             <div className="pf-identity">
               <div className="pf-avatar-wrap">
                 <img
-                  src={`https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=162d4a&color=c8972a&size=200`}
+                  src={user.profilePhoto || `https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=162d4a&color=c8972a&size=200`}
                   alt="Profile"
                   onError={e => { e.target.src = 'https://aimamedia.org/img/noimage.jpg'; }}
                 />
               </div>
               <div className="pf-identity-info">
                 <h2 className="pf-name">{fullName}</h2>
-                {(user.city || user.state) && (
+                {(user.district || user.state) && (
                   <p className="pf-location">
                     <i className="fas fa-map-marker-alt" style={{ color:'#c8972a', fontSize:'12px' }} />
-                    {[user.city, user.state].filter(Boolean).join(', ')}
+                    {[user.district, user.state].filter(Boolean).join(', ')}
                   </p>
                 )}
                 <span className="pf-member-badge">

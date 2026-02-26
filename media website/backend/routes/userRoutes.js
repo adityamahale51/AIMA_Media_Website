@@ -3,7 +3,7 @@ const router = express.Router();
 const { getMyProfile, updateMyProfile, getAllUsers, getUserById, deleteUser } = require('../controllers/userController');
 const { protect } = require('../middleware/auth');
 const { authorizeRoles } = require('../middleware/roles');
-const upload = require('../config/multer');
+const { profileUpload } = require('../config/multer');
 
 /**
  * @openapi
@@ -88,7 +88,7 @@ router.get('/me', protect, getMyProfile);
  *       200:
  *         description: Updated profile
  */
-router.put('/me', protect, upload.single('profilePhoto'), updateMyProfile);
+router.put('/me', protect, profileUpload.single('profilePhoto'), updateMyProfile);
 
 
 /**

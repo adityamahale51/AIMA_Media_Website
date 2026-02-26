@@ -55,7 +55,8 @@ export function AuthProvider({ children }) {
 
   const updateProfile = async (data) => {
     try {
-      const result = await api.updateProfile(data);
+      // allow callers to pass FormData (for file upload) or plain object
+      const result = await api.updateProfile(data instanceof FormData ? data : data);
       setUser(result.user);
       return { success: true };
     } catch (err) {

@@ -372,34 +372,54 @@ export default function EditProfile() {
   const [form, setForm]     = useState({});
   const [alert, setAlert]   = useState(null);
   const [loading, setLoading] = useState(false);
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState('');
 
   useEffect(() => {
     if (!user) { navigate('/login'); return; }
     setForm({
       firstName: user.firstName || '', lastName: user.lastName || '',
       email: user.email || '', mobile: user.mobile || '',
-      state: user.state || '', city: user.city || '',
+      state: user.state || '', district: user.district || '',
       organization: user.organization || '', designation: user.designation || '',
       bio: user.bio || '', linkedin: user.linkedin || '',
       website: user.website || '', skills: user.skills || '',
     });
+    setPreview(user.profilePhoto || `https://ui-avatars.com/api/?name=${encodeURIComponent((user.firstName||'') + ' ' + (user.lastName||''))}&background=162d4a&color=c8972a&size=200`);
   }, [user, navigate]);
 
   if (!user) return null;
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleFileChange = (e) => {
+    const f = e.target.files && e.target.files[0];
+    if (f) {
+      setFile(f);
+      setPreview(URL.createObjectURL(f));
+    }
+  };
   const fullName = `${form.firstName || ''} ${form.lastName || ''}`.trim() || 'User';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const result = await updateProfile(form);
-    setLoading(false);
-    if (result.success) {
-      setAlert({ type: 'success', msg: 'Profile updated successfully!' });
-      window.scrollTo(0, 0);
-    } else {
-      setAlert({ type: 'error', msg: result.message });
+    try {
+      const fd = new FormData();
+      Object.keys(form).forEach(key => {
+        if (form[key] !== undefined && form[key] !== null) fd.append(key, form[key]);
+      });
+      if (file) fd.append('profilePhoto', file);
+      const result = await updateProfile(fd);
+      setLoading(false);
+      if (result.success) {
+        setAlert({ type: 'success', msg: 'Profile updated successfully!' });
+        window.scrollTo(0, 0);
+      } else {
+        setAlert({ type: 'error', msg: result.message });
+      }
+    } catch (err) {
+      setLoading(false);
+      setAlert({ type: 'error', msg: err.message });
     }
   };
 
@@ -451,10 +471,13 @@ export default function EditProfile() {
             }} />
             <div className="ep-avatar-wrap">
               <img
-                src={`https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=162d4a&color=c8972a&size=200`}
+                src={preview || `https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=162d4a&color=c8972a&size=200`}
                 alt="Profile"
                 onError={e => { e.target.src = 'https://aimamedia.org/img/noimage.jpg'; }}
               />
+            </div>
+            <div style={{ marginTop:12, textAlign:'center' }}>
+              <input type="file" accept="image/*" onChange={handleFileChange} />
             </div>
             <div className="ep-sidebar-name">{fullName}</div>
             <div className="ep-sidebar-role">{form.designation || 'Member'}</div>

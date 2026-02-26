@@ -1,4 +1,4 @@
-const API_URL = '/api';
+const API_URL = 'http://localhost:5000/api';
 
 async function request(endpoint, options = {}) {
   const token = localStorage.getItem('aimaToken');
@@ -47,10 +47,10 @@ export const api = {
     request('/auth/register', { method: 'POST', body: JSON.stringify(formData) }),
 
   getMe: () =>
-    request('/auth/me'),
+    request('/users/me'),
 
-  updateProfile: (data) =>
-    request('/auth/profile', { method: 'PUT', body: JSON.stringify(data) }),
+  updateProfile: (body) =>
+    request('/users/me', { method: 'PUT', body }),
 
   getDigitalId: () =>
     request('/auth/digital-id'),
@@ -59,11 +59,15 @@ export const api = {
     request(`/auth/verify/${membershipId}`),
 
   // News
-  getNews: () =>
-    request('/news'),
-
   getNewsById: (id) =>
     request(`/news/${id}`),
+
+  getNews: (params) => {
+    if (!params) return request('/news');
+    const qs = new URLSearchParams();
+    Object.entries(params).forEach(([k, v]) => { if (v !== undefined && v !== null && v !== '') qs.set(k, v); });
+    return request(`/news?${qs.toString()}`);
+  },
 
   getNewsFeatured: () =>
     request('/news/featured'),
@@ -79,6 +83,9 @@ export const api = {
 
   createNews: (formData) =>
     request('/news', { method: 'POST', body: formData }), // FormData for file upload
+
+  approveNews: (id) =>
+    request(`/news/${id}/approve`, { method: 'PATCH' }),
 
   likeNews: (id) =>
     request(`/news/${id}/like`, { method: 'PUT' }),
