@@ -1,28 +1,28 @@
 const mongoose = require('mongoose');
 
-const TransactionSchema = new mongoose.Schema({
+const MembershipSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
+    index: true,
   },
   plan: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Plan',
     required: true,
   },
-  amount: {
-    type: Number,
+  startDate: {
+    type: Date,
     required: true,
-    min: 0,
   },
-  paymentId: {
-    type: String,
-    default: '',
+  endDate: {
+    type: Date,
+    required: true,
   },
   status: {
     type: String,
-    enum: ['pending', 'success', 'failed'],
+    enum: ['active', 'expired', 'pending'],
     default: 'pending',
   },
   createdAt: {
@@ -31,4 +31,4 @@ const TransactionSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Transaction', TransactionSchema);
+module.exports = mongoose.model('Membership', MembershipSchema);

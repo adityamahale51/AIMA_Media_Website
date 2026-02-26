@@ -44,8 +44,12 @@ const contactRoutes = require('./routes/contact');
 app.use('/api/contact', contactRoutes);
 const galleryRoutes = require('./routes/gallery');
 app.use('/api/gallery', galleryRoutes);
-const plansRoutes = require('./routes/plans');
-app.use('/api/plans', plansRoutes);
+const planRoutes = require('./routes/planRoutes');
+app.use('/api/plans', planRoutes);
+const membershipRoutes = require('./routes/membershipRoutes');
+app.use('/api/memberships', membershipRoutes);
+const transactionRoutes = require('./routes/transactionRoutes');
+app.use('/api/transactions', transactionRoutes);
 const adminRoutes = require('./routes/admin');
 app.use('/api/admin', adminRoutes);
 
