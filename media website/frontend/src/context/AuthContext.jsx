@@ -33,10 +33,16 @@ export function AuthProvider({ children }) {
 
   const register = async (formData) => {
     try {
-      const data = await api.register(formData);
+      const payload = {
+        name: `${formData.firstName || ''} ${formData.lastName || ''}`.trim(),
+        email: formData.email,
+        mobile: formData.mobile,
+        password: formData.password,
+      };
+      const data = await api.register(payload);
       localStorage.setItem('aimaToken', data.token);
       setUser(data.user);
-      return { success: true, membershipId: data.user.membershipId };
+      return { success: true, membershipId: data.user.membershipId || data.user.id };
     } catch (err) {
       return { success: false, message: err.message };
     }
@@ -49,7 +55,8 @@ export function AuthProvider({ children }) {
 
   const updateProfile = async (data) => {
     try {
-      const result = await api.updateProfile(data);
+      // allow callers to pass FormData (for file upload) or plain object
+      const result = await api.updateProfile(data instanceof FormData ? data : data);
       setUser(result.user);
       return { success: true };
     } catch (err) {
