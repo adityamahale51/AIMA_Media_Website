@@ -18,10 +18,21 @@ async function request(endpoint, options = {}) {
     headers,
   });
 
-  const data = await res.json();
+  // read response as text first — some responses may be empty
+  const text = await res.text();
+  let data = null;
+  if (text) {
+    try {
+      data = JSON.parse(text);
+    } catch (err) {
+      // not JSON — return raw text for callers if needed
+      data = text;
+    }
+  }
 
   if (!res.ok) {
-    throw new Error(data.message || 'Something went wrong');
+    const message = data && data.message ? data.message : res.statusText || 'Something went wrong';
+    throw new Error(message);
   }
 
   return data;
