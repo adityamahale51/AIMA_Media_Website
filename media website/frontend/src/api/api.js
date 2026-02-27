@@ -110,10 +110,10 @@ export const api = {
 
   // Plans
   getPlans: () =>
-    request('/plans'),
+    request('/plans/public'),
 
   getPlan: (id) =>
-    request(`/plans/${id}`),
+    request(`/plans/public/${id}`),
 
   subscribePlan: (plan_id) =>
     request('/plans/subscribe', { method: 'POST', body: JSON.stringify({ plan_id }) }),

@@ -5,6 +5,12 @@ const {
   getPlans,
   updatePlan,
   deletePlan,
+  getActivePlans,
+  getActivePlanById,
+  subscribePlan,
+  confirmPayment,
+  getMyTransactions,
+  getMyInvoices,
 } = require('../controllers/planController');
 const { protect } = require('../middleware/auth');
 const { authorizeRoles } = require('../middleware/roles');
@@ -64,6 +70,89 @@ router
   .route('/')
   .post(protect, authorizeRoles('admin'), createPlan)
   .get(protect, authorizeRoles('admin'), getPlans);
+
+/**
+ * @openapi
+ * /api/plans/public:
+ *   get:
+ *     tags: [Plans]
+ *     summary: Get active plans (public)
+ *     responses:
+ *       200:
+ *         description: Active plans
+ */
+router.get('/public', getActivePlans);
+
+/**
+ * @openapi
+ * /api/plans/public/{id}:
+ *   get:
+ *     tags: [Plans]
+ *     summary: Get active plan by id (public)
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Plan details
+ */
+router.get('/public/:id', getActivePlanById);
+
+/**
+ * @openapi
+ * /api/plans/subscribe:
+ *   post:
+ *     tags: [Plans]
+ *     summary: Subscribe current user to a plan (legacy compatibility)
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [plan_id]
+ *             properties:
+ *               plan_id:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Subscription initiated
+ */
+router.post('/subscribe', protect, subscribePlan);
+
+/**
+ * @openapi
+ * /api/plans/payment-success:
+ *   post:
+ *     tags: [Plans]
+ *     summary: Confirm payment and activate membership (legacy compatibility)
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [transaction_id]
+ *             properties:
+ *               transaction_id:
+ *                 type: string
+ *               payment_gateway_id:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Payment confirmed
+ */
+router.post('/payment-success', protect, confirmPayment);
+
+router.get('/my/transactions', protect, getMyTransactions);
+router.get('/my/invoices', protect, getMyInvoices);
 
 /**
  * @openapi

@@ -20,10 +20,19 @@ const TransactionSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  invoiceNumber: {
+    type: String,
+    unique: true,
+    sparse: true,
+  },
   status: {
     type: String,
     enum: ['pending', 'success', 'failed'],
     default: 'pending',
+  },
+  date: {
+    type: Date,
+    default: Date.now,
   },
   createdAt: {
     type: Date,
