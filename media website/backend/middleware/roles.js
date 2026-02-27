@@ -1,11 +1,18 @@
-const User = require('../models/User');
-
 exports.authorizeRoles = (...roles) => {
   return async (req, res, next) => {
     try {
-      const user = await User.findById(req.user.id);
-      if (!user) return res.status(401).json({ success: false, message: 'Not authorized' });
-      if (!roles.includes(user.role)) return res.status(403).json({ success: false, message: 'Forbidden' });
+      if (!req.user) {
+        const err = new Error('Not authorized');
+        err.statusCode = 401;
+        return next(err);
+      }
+      if (!roles || roles.length === 0) return next();
+
+      if (!roles.includes(req.user.role)) {
+        const err = new Error(`Access denied. Required role: ${roles.join(' or ')}`);
+        err.statusCode = 403;
+        return next(err);
+      }
       next();
     } catch (err) {
       next(err);

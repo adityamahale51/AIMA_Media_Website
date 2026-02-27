@@ -59,13 +59,13 @@ router.get('/me', protect, getMyTransactions);
  * /api/transactions:
  *   get:
  *     tags: [Transactions]
- *     summary: Get all transactions (admin)
+ *     summary: Get all transactions (admin or super_admin)
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: All transactions
  */
-router.get('/', protect, authorizeRoles('admin'), getAllTransactions);
+router.get('/', protect, authorizeRoles('admin', 'super_admin'), getAllTransactions);
 
 module.exports = router;

@@ -27,7 +27,7 @@ const { authorizeRoles } = require('../middleware/roles');
  * /api/plans:
  *   post:
  *     tags: [Plans]
- *     summary: Create a membership plan (admin)
+ *     summary: Create a membership plan (super_admin)
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -59,7 +59,7 @@ const { authorizeRoles } = require('../middleware/roles');
  *
  *   get:
  *     tags: [Plans]
- *     summary: Get all plans (admin)
+ *     summary: Get all plans (super_admin)
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -68,8 +68,8 @@ const { authorizeRoles } = require('../middleware/roles');
  */
 router
   .route('/')
-  .post(protect, authorizeRoles('admin'), createPlan)
-  .get(protect, authorizeRoles('admin'), getPlans);
+  .post(protect, authorizeRoles('super_admin'), createPlan)
+  .get(protect, authorizeRoles('super_admin'), getPlans);
 
 /**
  * @openapi
@@ -159,7 +159,7 @@ router.get('/my/invoices', protect, getMyInvoices);
  * /api/plans/{id}:
  *   put:
  *     tags: [Plans]
- *     summary: Update a plan by id (admin)
+ *     summary: Update a plan by id (super_admin)
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -193,7 +193,7 @@ router.get('/my/invoices', protect, getMyInvoices);
  *
  *   delete:
  *     tags: [Plans]
- *     summary: Delete a plan by id (admin)
+ *     summary: Delete a plan by id (super_admin)
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -208,7 +208,7 @@ router.get('/my/invoices', protect, getMyInvoices);
  */
 router
   .route('/:id')
-  .put(protect, authorizeRoles('admin'), updatePlan)
-  .delete(protect, authorizeRoles('admin'), deletePlan);
+  .put(protect, authorizeRoles('super_admin'), updatePlan)
+  .delete(protect, authorizeRoles('super_admin'), deletePlan);
 
 module.exports = router;

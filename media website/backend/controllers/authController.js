@@ -120,6 +120,8 @@ exports.login = async (req, res, next) => {
     const identifier = email;
     const user = await User.findOne({ $or: [{ email: identifier }, { mobile: identifier }] }).select('+password');
     if (!user) return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    if (!user.isActive) return res.status(403).json({ success: false, message: 'Account is inactive' });
+    if (user.isBlocked) return res.status(403).json({ success: false, message: 'Account is blocked. Contact support.' });
 
     const isMatch = await user.matchPassword(password);
     if (!isMatch) return res.status(401).json({ success: false, message: 'Invalid credentials' });

@@ -168,7 +168,7 @@ router.delete('/:id', protect, newsController.deleteNews);
  * /api/news/{id}/approve:
  *   patch:
  *     tags: [News]
- *     summary: Approve news (admin only)
+ *     summary: Approve news (admin or super_admin)
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -181,7 +181,7 @@ router.delete('/:id', protect, newsController.deleteNews);
  *       200:
  *         description: Approved
  */
-router.patch('/:id/approve', protect, authorizeRoles('admin'), newsController.approveNews);
+router.patch('/:id/approve', protect, authorizeRoles('admin', 'super_admin'), newsController.approveNews);
 router.put('/:id/like', newsController.likeNews);
 
 module.exports = router;

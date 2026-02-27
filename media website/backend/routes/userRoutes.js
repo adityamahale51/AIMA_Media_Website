@@ -1,6 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { getMyProfile, updateMyProfile, getAllUsers, getUserById, deleteUser } = require('../controllers/userController');
+const {
+  getMyProfile,
+  updateMyProfile,
+  getAllUsers,
+  getUserById,
+  deleteUser,
+  updateUserRole,
+  blockUnblockUser,
+} = require('../controllers/userController');
 const { protect } = require('../middleware/auth');
 const { authorizeRoles } = require('../middleware/roles');
 const { profileUpload } = require('../config/multer');
@@ -117,7 +125,7 @@ router.put('/me', protect, profileUpload.single('profilePhoto'), updateMyProfile
  *       200:
  *         description: List of users
  */
-router.get('/', protect, authorizeRoles('admin'), getAllUsers);
+router.get('/', protect, authorizeRoles('admin', 'super_admin'), getAllUsers);
 
 
 /**
@@ -139,7 +147,7 @@ router.get('/', protect, authorizeRoles('admin'), getAllUsers);
  *       200:
  *         description: User object
  */
-router.get('/:id', protect, authorizeRoles('admin'), getUserById);
+router.get('/:id', protect, authorizeRoles('admin', 'super_admin'), getUserById);
 
 
 /**
@@ -161,6 +169,69 @@ router.get('/:id', protect, authorizeRoles('admin'), getUserById);
  *       200:
  *         description: User deleted
  */
-router.delete('/:id', protect, authorizeRoles('admin'), deleteUser);
+router.delete('/:id', protect, authorizeRoles('admin', 'super_admin'), deleteUser);
+
+/**
+ * @openapi
+ * /api/users/{id}/role:
+ *   patch:
+ *     tags:
+ *       - Users
+ *     summary: Update user role (super_admin only)
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - role
+ *             properties:
+ *               role:
+ *                 type: string
+ *                 enum: [member, admin, super_admin]
+ *     responses:
+ *       200:
+ *         description: User role updated
+ */
+router.patch('/:id/role', protect, authorizeRoles('super_admin'), updateUserRole);
+
+/**
+ * @openapi
+ * /api/users/{id}/block:
+ *   patch:
+ *     tags:
+ *       - Users
+ *     summary: Block/unblock user (admin or super_admin)
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: false
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               isBlocked:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *         description: User block status changed
+ */
+router.patch('/:id/block', protect, authorizeRoles('admin', 'super_admin'), blockUnblockUser);
 
 module.exports = router;

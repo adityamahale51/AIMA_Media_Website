@@ -4,7 +4,7 @@ const { protect } = require('../middleware/auth');
 const { authorizeRoles } = require('../middleware/roles');
 const adminController = require('../controllers/adminController');
 
-router.use(protect, authorizeRoles('admin'));
+router.use(protect, authorizeRoles('admin', 'super_admin'));
 
 router.get('/stats', adminController.getStats);
 

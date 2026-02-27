@@ -66,6 +66,6 @@ router.get('/me', protect, getMyMembership);
  *       200:
  *         description: Membership list
  */
-router.get('/', protect, authorizeRoles('admin'), getAllMemberships);
+router.get('/', protect, authorizeRoles('admin', 'super_admin'), getAllMemberships);
 
 module.exports = router;

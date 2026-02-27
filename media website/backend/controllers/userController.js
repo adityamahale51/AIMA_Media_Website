@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const fs = require('fs');
 const path = require('path');
+const mongoose = require('mongoose');
 
 const formatDate = (value) => {
   if (!value) return '';
@@ -34,7 +35,11 @@ const serializeUser = (user) => ({
   website: user.website || '',
   skills: user.skills || '',
   joinedDate: formatDate(user.joinedDate || user.createdAt),
+  isActive: user.isActive,
+  isBlocked: user.isBlocked,
 });
+
+const VALID_ROLES = ['member', 'admin', 'super_admin'];
 
 // GET /api/users/me
 exports.getMyProfile = async (req, res, next) => {
@@ -125,6 +130,93 @@ exports.deleteUser = async (req, res, next) => {
 
     await user.remove();
     res.status(200).json({ success: true, message: 'User removed' });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// PATCH /api/users/:id/role (super_admin only)
+exports.updateUserRole = async (req, res, next) => {
+  try {
+    const { role } = req.body;
+    const targetId = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(targetId)) {
+      return res.status(400).json({ success: false, message: 'Invalid user id' });
+    }
+    if (!role || !VALID_ROLES.includes(role)) {
+      return res.status(400).json({ success: false, message: 'Invalid role value' });
+    }
+
+    const targetUser = await User.findById(targetId);
+    if (!targetUser) return res.status(404).json({ success: false, message: 'User not found' });
+
+    // extra guard: non-super admin cannot self-promote (even if route protections change)
+    if (req.user.role === 'admin' && String(req.user._id) === String(targetUser._id) && role !== 'admin') {
+      return res.status(403).json({ success: false, message: 'Admin cannot promote themselves' });
+    }
+
+    if (targetUser.role === 'super_admin' && role !== 'super_admin') {
+      const superAdminCount = await User.countDocuments({ role: 'super_admin', isActive: true });
+      if (superAdminCount <= 1) {
+        return res.status(400).json({ success: false, message: 'Cannot demote the last super_admin' });
+      }
+    }
+
+    targetUser.role = role;
+    await targetUser.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'User role updated successfully',
+      data: {
+        id: targetUser._id,
+        email: targetUser.email,
+        role: targetUser.role,
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// PATCH /api/users/:id/block (admin/super_admin)
+exports.blockUnblockUser = async (req, res, next) => {
+  try {
+    const targetId = req.params.id;
+    if (!mongoose.Types.ObjectId.isValid(targetId)) {
+      return res.status(400).json({ success: false, message: 'Invalid user id' });
+    }
+
+    const targetUser = await User.findById(targetId);
+    if (!targetUser) return res.status(404).json({ success: false, message: 'User not found' });
+    if (targetUser.role === 'super_admin') {
+      return res.status(403).json({ success: false, message: 'Cannot block/unblock super_admin user' });
+    }
+
+    if (String(targetUser._id) === String(req.user._id)) {
+      return res.status(400).json({ success: false, message: 'You cannot block/unblock yourself' });
+    }
+
+    const shouldBlock = typeof req.body.isBlocked === 'boolean'
+      ? req.body.isBlocked
+      : !targetUser.isBlocked;
+
+    targetUser.isBlocked = shouldBlock;
+    // Keep isActive aligned for safety
+    targetUser.isActive = !shouldBlock;
+    await targetUser.save();
+
+    return res.status(200).json({
+      success: true,
+      message: shouldBlock ? 'User blocked successfully' : 'User unblocked successfully',
+      data: {
+        id: targetUser._id,
+        email: targetUser.email,
+        isBlocked: targetUser.isBlocked,
+        isActive: targetUser.isActive,
+      },
+    });
   } catch (err) {
     next(err);
   }
