@@ -25,7 +25,7 @@ export function AuthProvider({ children }) {
       const data = await api.login(email, password);
       localStorage.setItem('aimaToken', data.token);
       setUser(data.user);
-      return { success: true };
+      return { success: true, user: data.user };
     } catch (err) {
       return { success: false, message: err.message };
     }

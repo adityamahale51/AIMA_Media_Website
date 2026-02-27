@@ -216,11 +216,12 @@ export default function Admin() {
   const [stats, setStats] = useState(null);
 
   useEffect(() => {
-    if (!user || user.role !== 'admin') { navigate('/login'); return; }
+    if (!user) { navigate('/login'); return; }
+    if (!['admin', 'super_admin'].includes(user.role)) { navigate('/dashboard'); return; }
     api.getAdminStats().then(res => setStats(res.data)).catch(() => {});
   }, [user, navigate]);
 
-  if (!user || user.role !== 'admin') return null;
+  if (!user || !['admin', 'super_admin'].includes(user.role)) return null;
 
   const tabs = [
     { id: 'overview', label: 'Overview', icon: 'fas fa-chart-line' },
