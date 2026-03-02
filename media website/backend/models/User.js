@@ -139,6 +139,15 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  bio: {
+    type: String,
+    default: '',
+  },
+  verification_status: {
+    type: String,
+    enum: ['unverified', 'pending', 'verified', 'rejected'],
+    default: 'unverified',
+  },
   joinedDate: {
     type: Date,
     default: Date.now,

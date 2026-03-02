@@ -344,8 +344,8 @@ const GlobalStyles = () => (
 
 const tocItems = [
   { icon:'fas fa-exclamation-triangle', label:'Important Notice'    },
-  { icon:'fas fa-check-circle',         label:'What AIMA Is'        },
-  { icon:'fas fa-times-circle',         label:'What AIMA Is Not'    },
+  { icon:'fas fa-check-circle',         label:'What IDMA Is'        },
+  { icon:'fas fa-times-circle',         label:'What IDMA Is Not'    },
   { icon:'fas fa-newspaper',            label:'Content Disclaimer'  },
   { icon:'fas fa-shield-alt',           label:'Liability Limitation'},
   { icon:'fas fa-id-card',              label:'Digital ID Disclaimer'},
@@ -426,7 +426,7 @@ export default function Disclaimer() {
 
             <div className="dl-sidebar-notice">
               <span className="dl-sidebar-notice-label">⚠ Please Note</span>
-              <p>AIMA membership is a private credential and does not represent any government-issued press accreditation.</p>
+              <p>IDMA membership is a private credential and does not represent any government-issued press accreditation.</p>
             </div>
           </aside>
 
@@ -436,7 +436,7 @@ export default function Disclaimer() {
             {/* Card header strip */}
             <div className="dl-card-top">
               <h2 className="dl-card-top-title">Important <em>Disclaimer</em></h2>
-              <p className="dl-card-top-sub">All India Media Association &nbsp;·&nbsp; Please read carefully</p>
+              <p className="dl-card-top-sub">Indian Digital Media Association &nbsp;·&nbsp; Please read carefully</p>
             </div>
 
             <div className="dl-card-body">
@@ -449,18 +449,18 @@ export default function Disclaimer() {
                 <div>
                   <h3 className="dl-notice-title">Important Notice</h3>
                   <p className="dl-notice-body">
-                    AIMA Media (All India Media Association) is a <strong>private digital membership network</strong>. This membership does <strong>NOT</strong> represent government accreditation, press card issuance, or any official media credentials from any government body of India.
+                    IDMA (Indian Digital Media Association) is a <strong>private digital membership network</strong>. This membership does <strong>NOT</strong> represent government accreditation, press card issuance, or any official media credentials from any government body of India.
                   </p>
                 </div>
               </div>
 
-              {/* What AIMA Is */}
+              {/* What IDMA Is */}
               <div className="dl-section" id="dl-section-1">
                 <div className="dl-section-header">
                   <div className="dl-section-icon" style={{ background:'rgba(34,197,94,.1)', color:'#166534' }}>
                     <i className="fas fa-check-circle" />
                   </div>
-                  <h3 className="dl-section-title">What AIMA <span style={{ fontFamily:'Playfair Display,serif', fontStyle:'italic', color:'#c8972a' }}>Is</span></h3>
+                  <h3 className="dl-section-title">What IDMA <span style={{ fontFamily:'Playfair Display,serif', fontStyle:'italic', color:'#c8972a' }}>Is</span></h3>
                 </div>
                 <div className="dl-check-grid">
                   {isItems.map((item, i) => (
@@ -471,13 +471,13 @@ export default function Disclaimer() {
                 </div>
               </div>
 
-              {/* What AIMA Is Not */}
+              {/* What IDMA Is Not */}
               <div className="dl-section" id="dl-section-2">
                 <div className="dl-section-header">
                   <div className="dl-section-icon" style={{ background:'rgba(198,40,40,.08)', color:'#c62828' }}>
                     <i className="fas fa-times-circle" />
                   </div>
-                  <h3 className="dl-section-title">What AIMA Is <span style={{ fontFamily:'Playfair Display,serif', fontStyle:'italic', color:'#c62828' }}>Not</span></h3>
+                  <h3 className="dl-section-title">What IDMA Is <span style={{ fontFamily:'Playfair Display,serif', fontStyle:'italic', color:'#c62828' }}>Not</span></h3>
                 </div>
                 <div className="dl-check-grid">
                   {isNotItems.map((item, i) => (
@@ -497,7 +497,7 @@ export default function Disclaimer() {
                   <h3 className="dl-section-title">Content <span style={{ fontFamily:'Playfair Display,serif', fontStyle:'italic', color:'#c8972a' }}>Disclaimer</span></h3>
                 </div>
                 <p className="dl-section-body">
-                  The views and opinions expressed in articles published on this platform are solely those of the individual authors/contributors and do not necessarily represent the views of AIMA Media. AIMA does not endorse or guarantee the accuracy of any user-submitted content.
+                  The views and opinions expressed in articles published on this platform are solely those of the individual authors/contributors and do not necessarily represent the views of IDMA. IDMA does not endorse or guarantee the accuracy of any user-submitted content.
                 </p>
               </div>
 
@@ -510,7 +510,7 @@ export default function Disclaimer() {
                   <h3 className="dl-section-title">Liability <span style={{ fontFamily:'Playfair Display,serif', fontStyle:'italic', color:'#c8972a' }}>Limitation</span></h3>
                 </div>
                 <p className="dl-section-body">
-                  AIMA Media shall not be held liable for any loss, damage, or inconvenience caused by the use of information published on this platform. Users are advised to independently verify any information before acting upon it.
+                  IDMA shall not be held liable for any loss, damage, or inconvenience caused by the use of information published on this platform. Users are advised to independently verify any information before acting upon it.
                 </p>
               </div>
 
@@ -523,7 +523,7 @@ export default function Disclaimer() {
                   <h3 className="dl-section-title">Digital ID <span style={{ fontFamily:'Playfair Display,serif', fontStyle:'italic', color:'#c8972a' }}>Disclaimer</span></h3>
                 </div>
                 <p className="dl-section-body">
-                  The AIMA Media Digital ID is a <strong>membership verification tool only</strong>. It does not grant any legal rights, press privileges, or government-recognized credentials. Misuse of the Digital ID for unauthorized purposes may result in immediate membership revocation and legal action.
+                  The IDMA Digital ID is a <strong>membership verification tool only</strong>. It does not grant any legal rights, press privileges, or government-recognized credentials. Misuse of the Digital ID for unauthorized purposes may result in immediate membership revocation and legal action.
                 </p>
               </div>
 
@@ -536,7 +536,7 @@ export default function Disclaimer() {
                   <h3 className="dl-section-title"><span style={{ fontFamily:'Playfair Display,serif', fontStyle:'italic', color:'#c8972a' }}>Jurisdiction</span></h3>
                 </div>
                 <p className="dl-section-body">
-                  All matters relating to this disclaimer and the use of the AIMA Media platform shall be governed by the laws of India, subject to the jurisdiction of courts in Uttar Pradesh, India.
+                  All matters relating to this disclaimer and the use of the IDMA platform shall be governed by the laws of India, subject to the jurisdiction of courts in Punjab, India.
                 </p>
               </div>
 
@@ -545,7 +545,7 @@ export default function Disclaimer() {
                 <i className="fas fa-info-circle" />
                 <span>
                   For any clarifications regarding this disclaimer, please contact us at{' '}
-                  <strong style={{ color:'#1e3a5f' }}>info@aimamedia.org</strong>.
+                  <strong style={{ color:'#1e3a5f' }}>info@idma.org</strong>.
                   By using this platform, you acknowledge that you have read and understood this disclaimer.
                 </span>
               </div>

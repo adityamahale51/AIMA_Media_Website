@@ -127,7 +127,13 @@ exports.getAllNews = async (req, res, next) => {
   if (!isAdmin) filter.status = 'published';
   if (state) filter.state = state;
   if (category) filter.category = category;
-  if (search) filter.title = { $regex: search, $options: 'i' };
+  if (search) {
+    filter.$or = [
+      { title: { $regex: search, $options: 'i' } },
+      { content: { $regex: search, $options: 'i' } },
+      { tags: { $in: [new RegExp(search, 'i')] } }
+    ];
+  }
 
   const total = await News.countDocuments(filter);
   const news = await News.find(filter)
@@ -305,7 +311,7 @@ exports.deleteNews = async (req, res, next) => {
     });
   }
 
-  await news.remove();
+  await news.deleteOne();
   res.json({ success: true, message: 'News removed' });
 };
 

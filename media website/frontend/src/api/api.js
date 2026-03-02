@@ -38,7 +38,10 @@ async function request(endpoint, options = {}) {
   return data;
 }
 
-export const api = {
+  export const api = {
+  // Base request
+  request,
+
   // Auth
   login: (email, password) =>
     request('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) }),
@@ -130,6 +133,22 @@ export const api = {
   // Admin
   getAdminStats: () =>
     request('/admin/stats'),
+
+  // Comments
+  getComments: (newsId) =>
+    request(`/comments/news/${newsId}`),
+
+  createComment: (newsId, content) =>
+    request('/comments', { method: 'POST', body: JSON.stringify({ newsId, content }) }),
+
+  deleteComment: (id) =>
+    request(`/comments/${id}`, { method: 'DELETE' }),
+
+  updateUserRole: (id, role) =>
+    request(`/users/${id}/role`, { method: 'PATCH', body: JSON.stringify({ role }) }),
+
+  blockUnblockUser: (id, isBlocked) =>
+    request(`/users/${id}/block`, { method: 'PATCH', body: JSON.stringify({ isBlocked }) }),
 
   getAdminMembers: (status, search) => {
     const params = new URLSearchParams();

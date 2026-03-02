@@ -101,6 +101,8 @@ function ArticlesTab() {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(null);
+  const [rejectionReason, setRejectionReason] = useState('');
+  const [showRejectModal, setShowRejectionModal] = useState(null);
 
   const loadArticles = () => {
     setLoading(true);
@@ -116,7 +118,11 @@ function ArticlesTab() {
     setActionLoading(id);
     try {
       if (action === 'approve') await api.approveArticle(id);
-      else if (action === 'reject') await api.rejectArticle(id, prompt('Rejection reason:') || '');
+      else if (action === 'reject') {
+        const reason = prompt('Rejection reason:');
+        if (!reason) { setActionLoading(null); return; }
+        await api.rejectArticle(id, reason);
+      }
       else if (action === 'feature') await api.featureArticle(id);
       else if (action === 'trending') await api.trendingArticle(id);
       else if (action === 'delete') { if (window.confirm('Delete this article?')) await api.deleteArticleAdmin(id); }
@@ -228,7 +234,153 @@ export default function Admin() {
     { id: 'members', label: 'Members', icon: 'fas fa-users' },
     { id: 'articles', label: 'Articles', icon: 'fas fa-newspaper' },
     { id: 'contacts', label: 'Messages', icon: 'fas fa-envelope' },
+    { id: 'users', label: 'All Users', icon: 'fas fa-user-cog' },
+    { id: 'plans', label: 'Manage Plans', icon: 'fas fa-tags' },
   ];
+
+  const PlansTab = () => {
+    const [plans, setPlans] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const loadPlans = () => {
+      setLoading(true);
+      api.getPlans()
+        .then(res => setPlans(res.data || []))
+        .catch(() => {})
+        .finally(() => setLoading(false));
+    };
+
+    useEffect(() => { loadPlans(); }, []);
+
+    const handleToggleActive = async (id, currentActive) => {
+      try {
+        await api.request(`/plans/${id}`, { method: 'PUT', body: JSON.stringify({ isActive: !currentActive }) });
+        loadPlans();
+      } catch (err) { alert(err.message); }
+    };
+
+    return (
+      <div>
+        <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between' }}>
+          <h3>Membership Plans</h3>
+          <button onClick={() => alert('Add Plan feature coming soon')} style={{ padding: '8px 16px', background: 'var(--primary)', color: 'white', border: 'none', borderRadius: 'var(--radius)' }}>Add New Plan</button>
+        </div>
+        {loading ? <div>Loading...</div> : (
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+              <thead>
+                <tr style={{ background: 'var(--primary)', color: 'white' }}>
+                  <th style={{ padding: '10px' }}>Name</th>
+                  <th style={{ padding: '10px' }}>Price</th>
+                  <th style={{ padding: '10px' }}>Duration</th>
+                  <th style={{ padding: '10px' }}>Status</th>
+                  <th style={{ padding: '10px' }}>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {plans.map(p => (
+                  <tr key={p.id} style={{ borderBottom: '1px solid #eee' }}>
+                    <td style={{ padding: '10px' }}>{p.name}</td>
+                    <td style={{ padding: '10px' }}>₹{p.price}</td>
+                    <td style={{ padding: '10px' }}>{p.durationInDays} days</td>
+                    <td style={{ padding: '10px' }}>{p.isActive ? 'Active' : 'Inactive'}</td>
+                    <td style={{ padding: '10px' }}>
+                      <button onClick={() => handleToggleActive(p.id, p.isActive)}>
+                        {p.isActive ? 'Deactivate' : 'Activate'}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const UsersTab = () => {
+    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [search, setSearch] = useState('');
+    const [page, setPage] = useState(1);
+    const [total, setTotal] = useState(0);
+
+    const loadUsers = () => {
+      setLoading(true);
+      api.request(`/users?page=${page}&search=${search}`)
+        .then(res => {
+          setUsers(res.users || []);
+          setTotal(res.total || 0);
+        })
+        .catch(() => {})
+        .finally(() => setLoading(false));
+    };
+
+    useEffect(() => { loadUsers(); }, [page]);
+
+    const handleRoleChange = async (id, currentRole) => {
+      const newRole = prompt('Enter new role (member, admin, super_admin):', currentRole);
+      if (!newRole || newRole === currentRole) return;
+      try {
+        await api.updateUserRole(id, newRole);
+        loadUsers();
+      } catch (err) { alert(err.message); }
+    };
+
+    const handleBlockToggle = async (id, currentBlocked) => {
+      if (!confirm(`Are you sure you want to ${currentBlocked ? 'unblock' : 'block'} this user?`)) return;
+      try {
+        await api.blockUnblockUser(id, !currentBlocked);
+        loadUsers();
+      } catch (err) { alert(err.message); }
+    };
+
+    return (
+      <div>
+        <div style={{ display: 'flex', gap: '10px', marginBottom: '16px' }}>
+          <input type="text" placeholder="Search users..." value={search} onChange={e => setSearch(e.target.value)} style={{ padding: '8px 14px', border: '2px solid var(--border-color)', borderRadius: 'var(--radius)', flex: 1 }} />
+          <button onClick={() => { setPage(1); loadUsers(); }} style={{ padding: '8px 16px', background: 'var(--primary)', color: 'white', border: 'none', borderRadius: 'var(--radius)' }}>Search</button>
+        </div>
+        {loading ? <div>Loading...</div> : (
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+              <thead>
+                <tr style={{ background: 'var(--primary)', color: 'white' }}>
+                  <th style={{ padding: '10px' }}>Name</th>
+                  <th style={{ padding: '10px' }}>Email</th>
+                  <th style={{ padding: '10px' }}>Role</th>
+                  <th style={{ padding: '10px' }}>Status</th>
+                  <th style={{ padding: '10px' }}>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map(u => (
+                  <tr key={u._id} style={{ borderBottom: '1px solid #eee' }}>
+                    <td style={{ padding: '10px' }}>{u.firstName} {u.lastName}</td>
+                    <td style={{ padding: '10px' }}>{u.email}</td>
+                    <td style={{ padding: '10px' }}>{u.role}</td>
+                    <td style={{ padding: '10px' }}>{u.isBlocked ? 'Blocked' : 'Active'}</td>
+                    <td style={{ padding: '10px' }}>
+                      <button onClick={() => handleRoleChange(u._id, u.role)} style={{ marginRight: 5 }}>Role</button>
+                      <button onClick={() => handleBlockToggle(u._id, u.isBlocked)} style={{ color: u.isBlocked ? 'green' : 'red' }}>
+                        {u.isBlocked ? 'Unblock' : 'Block'}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div style={{ marginTop: 10, display: 'flex', justifyContent: 'center', gap: 10 }}>
+              <button disabled={page <= 1} onClick={() => setPage(p => p - 1)}>Prev</button>
+              <span>Page {page}</span>
+              <button disabled={users.length < 10} onClick={() => setPage(p => p + 1)}>Next</button>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
 
   return (
     <Layout>
@@ -269,6 +421,8 @@ export default function Admin() {
         {activeTab === 'members' && <MembersTab />}
         {activeTab === 'articles' && <ArticlesTab />}
         {activeTab === 'contacts' && <ContactsTab />}
+        {activeTab === 'users' && <UsersTab />}
+        {activeTab === 'plans' && <PlansTab />}
       </div>
     </Layout>
   );

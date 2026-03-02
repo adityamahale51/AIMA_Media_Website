@@ -918,6 +918,15 @@ const STYLES = `
     transform: scale(1.04);
   }
 
+  .idma-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(24px,3vw,32px);
+    font-weight: 700;
+    color: #0f1f33;
+    line-height: 1;
+    letter-spacing: -0.5px;
+  }
+
   /* Decorative serif divider */
   .serif-divider {
     display: flex;
@@ -994,7 +1003,7 @@ function TopBar() {
         <div className="flex items-center gap-2.5" style={{ fontSize: '11px' }}>
           <span className="pulse-live inline-block w-1.5 h-1.5 rounded-full" style={{ background: '#c8972a' }} />
           <span style={{ color: 'rgba(255,255,255,.35)', letterSpacing: '.6px', textTransform: 'uppercase', fontWeight: 600 }}>
-            AIMA MEDIA
+            IDMA
           </span>
           <span style={{ color: 'rgba(200,151,42,.4)' }}>·</span>
           <span style={{ color: 'rgba(255,255,255,.25)', letterSpacing: '.3px' }}>
@@ -1065,24 +1074,13 @@ function Header() {
             {/* Brand text */}
             <div>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
-                <span
-                  className="font-cormorant"
-                  style={{ fontSize: 'clamp(24px,3vw,32px)', fontWeight: 700, color: '#0f1f33', lineHeight: 1, letterSpacing: '-0.5px' }}
-                >
-                  AIMA
-                </span>
-                <span
-                  className="font-cormorant shimmer-gold"
-                  style={{ fontSize: 'clamp(24px,3vw,32px)', fontWeight: 700, fontStyle: 'italic', lineHeight: 1 }}
-                >
-                  MEDIA
-                </span>
+                <span className="idma-text">IDMA</span>
               </div>
               <p
                 className="font-dm"
                 style={{ fontSize: 10, fontWeight: 600, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6b7a8d', marginTop: 3 }}
               >
-                All India Media Association
+                Indian Digital Media Association
               </p>
             </div>
           </Link>
@@ -1378,14 +1376,11 @@ function Footer() {
           <div>
             <div className="flex items-baseline gap-3 mb-2">
               <span className="font-cormorant" style={{ fontSize: 36, fontWeight: 700, color: '#fff', lineHeight: 1 }}>
-                AIMA
-              </span>
-              <span className="font-cormorant shimmer-gold" style={{ fontSize: 36, fontWeight: 700, fontStyle: 'italic', lineHeight: 1 }}>
-                MEDIA
+                IDMA
               </span>
             </div>
             <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'rgba(200,151,42,.6)' }}>
-              All India Media Association
+              Indian Digital Media Association
             </p>
             <p style={{ fontSize: 13, color: 'rgba(255,255,255,.3)', marginTop: 10, maxWidth: 360, lineHeight: 1.7 }}>
               India's Digital-First Verified Media Professionals Network — connecting journalists, reporters, and media
@@ -1565,7 +1560,7 @@ function Footer() {
           }}
         >
           <p style={{ fontSize: 12, color: 'rgba(255,255,255,.25)', fontFamily: 'DM Sans,sans-serif' }}>
-            Copyright © <span style={{ color: 'rgba(200,151,42,.6)' }}>AIMAMEDIA FOUNDATION</span> 2026. All rights reserved.
+            Copyright © <span style={{ color: 'rgba(200,151,42,.6)' }}>IDMA FOUNDATION</span> 2026. All rights reserved.
           </p>
           <div style={{ display: 'flex', gap: 20 }}>
             {[

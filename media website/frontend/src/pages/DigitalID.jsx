@@ -424,7 +424,7 @@ export default function DigitalID() {
     const printContent = document.getElementById('di-printable');
     if (!printContent) return;
     const w = window.open('', '_blank');
-    w.document.write(`<html><head><title>AIMA Digital ID — ${idData?.name}</title><style>
+    w.document.write(`<html><head><title>IDMA Digital ID — ${idData?.name}</title><style>
       @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900&family=DM+Sans:wght@400;600&display=swap');
       * { margin:0; padding:0; box-sizing:border-box; }
       body { font-family:'DM Sans',sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; background:#f5f5f5; }
@@ -451,11 +451,11 @@ export default function DigitalID() {
     </style></head><body>
       <div class="card">
         <div class="ch">
-          <h2>AIMA <em>Media</em></h2>
-          <p>All India Media Association</p>
+          <h2>IDMA</h2>
+          <p>Indian Digital Media Association</p>
         </div>
         <div class="cb">
-          <div class="av">${idData?.name?.charAt(0) || 'A'}</div>
+          <div class="av">${idData?.name?.charAt(0) || 'I'}</div>
           <div class="nm">${idData?.name || ''}</div>
           <div class="ds">${[idData?.designation, idData?.organization].filter(Boolean).join(' · ')}</div>
           <span class="bg"><i>&#9733;</i> ${idData?.tier || ''} Member</span>
@@ -471,7 +471,7 @@ export default function DigitalID() {
             <div class="qrl">Scan to verify membership</div>
           </div>
         </div>
-        <div class="cf"><p>${idData?.disclaimer || 'This is an official AIMA Media digital membership card.'}</p></div>
+        <div class="cf"><p>${idData?.disclaimer || 'This is an official IDMA digital membership card.'}</p></div>
       </div>
     </body></html>`);
     w.document.close();
@@ -549,15 +549,15 @@ export default function DigitalID() {
                     <span className="di-pulse" style={{ width:'5px', height:'5px', borderRadius:'50%', background:'#c8972a', display:'inline-block' }} />
                     Official ID
                   </div>
-                  <div className="di-card-org">AIMA <em>Media</em></div>
-                  <div className="di-card-org-sub">All India Media Association</div>
+                  <div className="di-card-org">IDMA</div>
+                  <div className="di-card-org-sub">Indian Digital Media Association</div>
                 </div>
 
                 {/* Body */}
                 <div className="di-card-body">
                   {/* Avatar */}
                   <div className="di-avatar-ring">
-                    {idData.name?.charAt(0) || 'A'}
+                    {idData.name?.charAt(0) || 'I'}
                   </div>
 
                   <div className="di-card-name">{idData.name}</div>
@@ -595,7 +595,7 @@ export default function DigitalID() {
 
                 {/* Footer */}
                 <div className="di-card-footer">
-                  <p>{idData.disclaimer || 'This is an official AIMA Media digital membership card.'}</p>
+                  <p>{idData.disclaimer || 'This is an official IDMA digital membership card.'}</p>
                 </div>
               </div>
 

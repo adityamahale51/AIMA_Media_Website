@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
+const Razorpay = require('razorpay');
 const Plan = require('../models/Plan');
 const Membership = require('../models/Membership');
 const Transaction = require('../models/Transaction');
 const User = require('../models/User');
+
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
 
 const toLegacyPlan = (plan) => ({
   id: plan._id,
@@ -140,12 +146,22 @@ exports.subscribePlan = async (req, res, next) => {
     const plan = await Plan.findOne({ _id: plan_id, isActive: true });
     if (!plan) return res.status(404).json({ success: false, message: 'Plan not found or inactive' });
 
+    // Create Razorpay Order
+    const options = {
+      amount: plan.price * 100, // amount in the smallest currency unit (paise)
+      currency: 'INR',
+      receipt: buildInvoiceNumber(),
+    };
+
+    const order = await razorpay.orders.create(options);
+
     const tx = await Transaction.create({
       user: req.user.id,
       plan: plan._id,
       amount: plan.price,
       status: 'pending',
-      invoiceNumber: buildInvoiceNumber(),
+      invoiceNumber: options.receipt,
+      paymentId: order.id, // Store Razorpay Order ID as temporary paymentId
     });
 
     return res.status(201).json({
@@ -156,7 +172,9 @@ exports.subscribePlan = async (req, res, next) => {
           id: tx._id,
           amount: tx.amount,
           status: tx.status,
+          razorpay_order_id: order.id,
         },
+        razorpay_key: process.env.RAZORPAY_KEY_ID,
       },
     });
   } catch (err) {

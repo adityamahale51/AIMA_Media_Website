@@ -172,7 +172,7 @@ exports.getDigitalId = async (req, res, next) => {
       validity: formatDate(user.membership_expiry) || 'N/A',
       joinedDate: formatDate(user.joinedDate || user.createdAt),
       qrData: `${process.env.CLIENT_URL || 'http://localhost:5173'}/verify/${user.membershipId || user._id}`,
-      disclaimer: 'This is an official AIMA Media digital membership card and is subject to verification.',
+      disclaimer: 'This membership does not represent government accreditation. This is an official IDMA digital membership card and is subject to verification.',
     };
 
     res.status(200).json({ success: true, data });
@@ -201,7 +201,7 @@ exports.verifyMembership = async (req, res, next) => {
       state: user.state || '',
       validity: formatDate(user.membership_expiry) || 'N/A',
       joinedDate: formatDate(user.joinedDate || user.createdAt),
-      disclaimer: 'Verification reflects current status at the time of lookup.',
+      disclaimer: 'This membership does not represent government accreditation. Verification reflects current status at the time of lookup.',
     };
 
     res.status(200).json({ success: true, data });

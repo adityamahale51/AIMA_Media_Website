@@ -50,6 +50,8 @@ const membershipRoutes = require('./routes/membershipRoutes');
 app.use('/api/memberships', membershipRoutes);
 const transactionRoutes = require('./routes/transactionRoutes');
 app.use('/api/transactions', transactionRoutes);
+const commentRoutes = require('./routes/commentRoutes');
+app.use('/api/comments', commentRoutes);
 const adminRoutes = require('./routes/admin');
 app.use('/api/admin', adminRoutes);
 

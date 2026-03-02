@@ -375,14 +375,36 @@ export default function MembershipPlans() {
     setSubscribing(planId);
     try {
       const res = await api.subscribePlan(planId);
-      const confirmed = window.confirm(
-        `Plan: ${res.data.plan.name}\nAmount: ₹${res.data.plan.price}\n\nClick OK to simulate payment (Razorpay integration required for production).`
-      );
-      if (confirmed) {
-        await api.confirmPayment(res.data.transaction.id, 'simulated-' + Date.now());
-        setAlert({ type: 'success', msg: 'Payment successful! Your membership is now pending admin approval. You will be notified once approved.' });
-        window.scrollTo(0, 0);
-      }
+      const { transaction, razorpay_key, plan } = res.data;
+
+      const options = {
+        key: razorpay_key,
+        amount: transaction.amount * 100,
+        currency: 'INR',
+        name: 'IDMA',
+        description: `Membership: ${plan.name}`,
+        order_id: transaction.razorpay_order_id,
+        handler: async function (response) {
+          try {
+            await api.confirmPayment(transaction.id, response.razorpay_payment_id);
+            setAlert({ type: 'success', msg: 'Payment successful! Your membership is now pending admin approval.' });
+            window.scrollTo(0, 0);
+          } catch (err) {
+            setAlert({ type: 'error', msg: 'Payment confirmation failed: ' + err.message });
+          }
+        },
+        prefill: {
+          name: user.name,
+          email: user.email,
+          contact: user.mobile,
+        },
+        theme: {
+          color: '#1e3a5f',
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
     } catch (err) {
       setAlert({ type: 'error', msg: err.message });
     }
@@ -391,6 +413,7 @@ export default function MembershipPlans() {
 
   return (
     <Layout>
+      <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
       <style>{STYLES}</style>
 
       {/* ── Hero ── */}
@@ -400,7 +423,7 @@ export default function MembershipPlans() {
             <div style={{ display:'flex', alignItems:'center', gap:12, marginBottom:14 }}>
               <div className="gold-rule" style={{ width:32 }} />
               <span style={{ fontSize:10, fontWeight:700, letterSpacing:'2.5px', textTransform:'uppercase', color:'rgba(200,151,42,.8)', fontFamily:'DM Sans,sans-serif' }}>
-                Join AIMA
+                Join IDMA
               </span>
             </div>
 

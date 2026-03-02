@@ -128,7 +128,7 @@ exports.deleteUser = async (req, res, next) => {
       fs.unlink(filePath, (err) => { /* ignore errors */ });
     }
 
-    await user.remove();
+    await user.deleteOne();
     res.status(200).json({ success: true, message: 'User removed' });
   } catch (err) {
     next(err);

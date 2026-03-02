@@ -601,7 +601,7 @@ function JoinCTA() {
         </div>
 
         <h2 className="cta-title">
-          Join <em>AIMA</em> — India's Media Network
+          Join <em>IDMA</em> — India's Media Network
         </h2>
         <p className="cta-desc">
           Get your verified Digital ID, publish articles, and connect with media professionals across India.

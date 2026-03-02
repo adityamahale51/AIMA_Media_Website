@@ -1,10 +1,15 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const NewsSchema = new mongoose.Schema({
   title: {
     type: String,
     required: [true, 'Please add a title'],
     trim: true,
+  },
+  slug: {
+    type: String,
+    unique: true,
   },
   content: {
     type: String,
@@ -73,6 +78,19 @@ const NewsSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  published_at: {
+    type: Date,
+  },
+});
+
+NewsSchema.pre('save', function(next) {
+  if (this.isModified('title')) {
+    this.slug = slugify(this.title, { lower: true, strict: true });
+  }
+  if (this.isModified('status') && this.status === 'published' && !this.published_at) {
+    this.published_at = Date.now();
+  }
+  next();
 });
 
 module.exports = mongoose.model('News', NewsSchema);
