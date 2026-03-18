@@ -1,6 +1,6 @@
 # AIMA Media - Full Stack Website
 
-A full-stack clone of [https://aimamedia.org/](https://aimamedia.org/) built with **React.js** (Frontend) and **Express.js** (Backend).
+A full-stack clone of [https://idmfmedia.org/](https://idmfmedia.org/) built with **React.js** (Frontend) and **Express.js** (Backend).
 
 ---
 
@@ -95,7 +95,7 @@ npm run dev
 
 | Type         | Email / Mobile       | Password   |
 |--------------|----------------------|------------|
-| **Demo User** | `demo@aimamedia.org` | `demo123`  |
+| **Demo User** | `demo@idmfmedia.org` | `demo123`  |
 | **Demo User** | `9999999999`         | `demo123`  |
 
 You can also **Register** a new account from the Join Us / Register page.
@@ -152,13 +152,13 @@ You can also **Register** a new account from the Join Us / Register page.
 | Database   | JSON file-based (no setup needed)   |
 | Upload     | Multer (image + audio)              |
 | Icons      | Font Awesome 6                      |
-| Styling    | Custom CSS (matching aimamedia.org) |
+| Styling    | Custom CSS (matching idmfmedia.org) |
 
 ---
 
 ## Features
 
-- Same-to-same design matching aimamedia.org
+- Same-to-same design matching idmfmedia.org
 - JWT authentication (login / register / logout)
 - News feed with like, comment, share buttons
 - Image carousel with auto-slide

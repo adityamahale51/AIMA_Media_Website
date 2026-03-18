@@ -50,7 +50,7 @@
 //             </button>
 //           </form>
 //           <div style={{ textAlign: 'center', marginTop: '15px', padding: '10px', background: 'var(--bg-light)', borderRadius: 'var(--radius)', fontSize: '12px', color: 'var(--text-light)' }}>
-//             <strong>Demo:</strong> demo@aimamedia.org / demo123
+//             <strong>Demo:</strong> demo@idmfmedia.org / demo123
 //           </div>
 //         </div>
 //         <div className="auth-footer">
@@ -210,12 +210,12 @@ export default function Login() {
 
             <h1 className="font-playfair font-black text-white leading-none tracking-tight mb-2"
                 style={{ fontSize:'clamp(58px,6vw,88px)' }}>
-              AIMA{' '}
+              IDMF{' '}
               <em style={{ fontStyle:'italic', color:'#c8972a' }}>Media</em>
             </h1>
             <p className="font-medium tracking-[4px] uppercase mb-8"
                style={{ fontSize:'12px', color:'rgba(255,255,255,.35)' }}>
-              All India Media Association
+              Independent Digital Media Foundation
             </p>
 
             <div className="w-14 h-[2px] mb-8 rounded-full"
@@ -272,10 +272,10 @@ export default function Login() {
             <div className="lg:hidden mb-10 text-center">
               <div className="font-playfair font-black tracking-tight leading-none"
                    style={{ fontSize:'40px', color:'#1e3a5f' }}>
-                AIMA <em style={{ fontStyle:'italic', color:'#c8972a' }}>Media</em>
+                IDMF <em style={{ fontStyle:'italic', color:'#c8972a' }}>Media</em>
               </div>
               <p className="tracking-[3px] uppercase text-slate-400 mt-2" style={{ fontSize:'11px' }}>
-                All India Media Association
+                Independent Digital Media Foundation
               </p>
             </div>
 
@@ -342,11 +342,11 @@ export default function Login() {
                          style={{ accentColor:'#1e3a5f' }} />
                   Remember me
                 </label>
-                <a href="#" onClick={e => e.preventDefault()}
+                <Link to="/forgot-password"
                    className="font-semibold hover:underline transition-colors"
                    style={{ fontSize:'14px', color:'#1e3a5f' }}>
                   Forgot Password?
-                </a>
+                </Link>
               </div>
 
               <button type="submit" className="btn-primary" disabled={loading}>
@@ -362,7 +362,7 @@ export default function Login() {
               <IconInfo />
               <span>
                 <strong className="text-slate-500 font-semibold">Demo:</strong>&nbsp;
-                demo@aimamedia.org &nbsp;/&nbsp; demo123
+                demo@idmfmedia.org &nbsp;/&nbsp; demo123
               </span>
             </div>
 
@@ -372,7 +372,7 @@ export default function Login() {
                 Don't have an account?{' '}
                 <Link to="/register" className="font-semibold hover:underline"
                       style={{ color:'#1e3a5f' }}>
-                  Join AIMA / Register
+                  Join IDMF / Register
                 </Link>
               </p>
               <Link to="/"

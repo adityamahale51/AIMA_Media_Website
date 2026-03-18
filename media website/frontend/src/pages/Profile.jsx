@@ -1,57 +1,3 @@
-// import { useEffect } from 'react';
-// import { Link, useNavigate } from 'react-router-dom';
-// import Layout from '../components/Layout';
-// import { useAuth } from '../context/AuthContext';
-
-// export default function Profile() {
-//   const { user } = useAuth();
-//   const navigate = useNavigate();
-//   useEffect(() => { if (!user) navigate('/login'); }, [user, navigate]);
-//   if (!user) return null;
-
-//   const fullName = `${user.firstName} ${user.lastName}`;
-
-//   return (
-//     <Layout>
-//       <div className="page-header"><div className="container"><h1><i className="fas fa-user"></i> My Profile</h1><div className="breadcrumb"><Link to="/">Home</Link> / <Link to="/dashboard">Dashboard</Link> / Profile</div></div></div>
-//       <div className="profile-container" style={{ paddingBottom: '80px' }}>
-//         <div className="profile-header-card">
-//           <div className="profile-cover"></div>
-//           <div className="profile-info">
-//             <div className="avatar"><img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=1a237e&color=fff&size=200`} alt="Profile" /></div>
-//             <div className="details">
-//               <h2>{fullName}</h2>
-//               <p><i className="fas fa-map-marker-alt"></i> {user.city || ''}, {user.state || ''}</p>
-//               <p style={{ marginTop: '4px' }}><span style={{ background: 'var(--primary)', color: 'white', padding: '2px 12px', borderRadius: '12px', fontSize: '11px', fontWeight: 600 }}>AIMAMEDIA Member</span></p>
-//             </div>
-//             <div style={{ marginLeft: 'auto' }}><Link to="/edit-profile" className="btn btn-outline btn-sm"><i className="fas fa-edit"></i> Edit Profile</Link></div>
-//           </div>
-//         </div>
-//         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '12px', marginBottom: '20px' }}>
-//           {[{ num: user.postsCount || 0, label: 'Posts', color: 'var(--primary)' }, { num: user.membersCount || 0, label: 'Members', color: 'var(--secondary)' }, { num: user.viewsCount || 0, label: 'Views', color: 'var(--accent)' }, { num: 89, label: 'Likes', color: '#2e7d32' }].map((s, i) => (
-//             <div key={i} style={{ background: 'white', padding: '16px', borderRadius: 'var(--radius)', boxShadow: 'var(--shadow)', textAlign: 'center' }}>
-//               <div style={{ fontSize: '24px', fontWeight: 800, color: s.color }}>{s.num}</div>
-//               <div style={{ fontSize: '12px', color: 'var(--text-light)' }}>{s.label}</div>
-//             </div>
-//           ))}
-//         </div>
-//         <div className="profile-body">
-//           <h3><i className="fas fa-info-circle"></i> Personal Information</h3>
-//           {[{ label: 'Full Name', value: fullName }, { label: 'Email', value: user.email }, { label: 'Mobile', value: user.mobile }, { label: 'State', value: user.state }, { label: 'City', value: user.city }, { label: 'Organization', value: user.organization }, { label: 'Designation', value: user.designation }, { label: 'Membership ID', value: user.membershipId }, { label: 'Plan', value: user.selectedPlanName || 'None' }, { label: 'Status', value: user.membershipStatus || 'pending' }, { label: 'LinkedIn', value: user.linkedin || '-' }, { label: 'Website', value: user.website || '-' }, { label: 'Skills', value: user.skills || '-' }, { label: 'Member Since', value: user.joinedDate }].map((d, i) => (
-//             <div className="profile-detail" key={i}><div className="label">{d.label}</div><div className="value">{d.value || '-'}</div></div>
-//           ))}
-//         </div>
-//         <div style={{ display: 'flex', gap: '12px', marginTop: '20px' }}>
-//           <Link to="/edit-profile" className="btn btn-primary" style={{ flex: 1, textAlign: 'center' }}><i className="fas fa-edit"></i> Edit Profile</Link>
-//           <Link to="/digital-id" className="btn btn-accent" style={{ flex: 1, textAlign: 'center' }}><i className="fas fa-id-card"></i> Digital ID Card</Link>
-//           <Link to="/membership-plans" className="btn btn-secondary" style={{ flex: 1, textAlign: 'center' }}><i className="fas fa-crown"></i> {user.selectedPlan ? 'Upgrade Plan' : 'Select Plan'}</Link>
-//         </div>
-//       </div>
-//     </Layout>
-//   );
-// }
-
-
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
@@ -523,7 +469,7 @@ export default function Profile() {
                 <img
                   src={`https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=162d4a&color=c8972a&size=200`}
                   alt="Profile"
-                  onError={e => { e.target.src = 'https://aimamedia.org/img/noimage.jpg'; }}
+                  onError={e => { e.target.src = 'https://ui-avatars.com/api/?name=U&background=162d4a&color=c8972a'; }}
                 />
               </div>
               <div className="pf-identity-info">
@@ -536,7 +482,7 @@ export default function Profile() {
                 )}
                 <span className="pf-member-badge">
                   <i className="fas fa-crown" style={{ fontSize:'9px' }} />
-                  AIMA Media Member
+                  IDMF Media Member
                 </span>
               </div>
               <div className="pf-edit-btn">

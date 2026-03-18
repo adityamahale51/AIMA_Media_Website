@@ -1,9 +1,9 @@
 const express = require('express');
 const JsonDB = require('../utils/db');
+const User = require('../models/User');
 const { adminRequired } = require('../middleware/admin');
 
 const router = express.Router();
-const usersDB = new JsonDB('users.json');
 const newsDB = new JsonDB('news.json');
 const plansDB = new JsonDB('plans.json');
 const transactionsDB = new JsonDB('transactions.json');
@@ -12,9 +12,9 @@ const contactsDB = new JsonDB('contacts.json');
 // ==================== DASHBOARD / ANALYTICS ====================
 
 // GET /api/admin/stats — Revenue & overview analytics
-router.get('/stats', adminRequired, (req, res) => {
+router.get('/stats', adminRequired, async (req, res) => {
   try {
-    const users = usersDB.findAll();
+    const users = await User.find({});
     const news = newsDB.findAll();
     const transactions = transactionsDB.findAll();
 
@@ -22,6 +22,7 @@ router.get('/stats', adminRequired, (req, res) => {
     const pendingMembers = users.filter(u => u.membershipStatus === 'pending').length;
     const approvedMembers = users.filter(u => u.membershipStatus === 'approved').length;
     const suspendedMembers = users.filter(u => u.membershipStatus === 'suspended').length;
+// ...
 
     const totalArticles = news.length;
     const pendingArticles = news.filter(n => n.status === 'submitted').length;
@@ -58,26 +59,26 @@ router.get('/stats', adminRequired, (req, res) => {
 // ==================== MEMBER MANAGEMENT ====================
 
 // GET /api/admin/members — Get all members with filters
-router.get('/members', adminRequired, (req, res) => {
+router.get('/members', adminRequired, async (req, res) => {
   try {
-    let users = usersDB.findAll().filter(u => u.role !== 'admin');
     const { status, search } = req.query;
+    let query = { role: { $ne: 'admin' } };
 
     if (status && status !== 'all') {
-      users = users.filter(u => u.membershipStatus === status);
+      query.membershipStatus = status;
     }
     if (search) {
-      const s = search.toLowerCase();
-      users = users.filter(u =>
-        (u.firstName + ' ' + u.lastName).toLowerCase().includes(s) ||
-        (u.email || '').toLowerCase().includes(s) ||
-        (u.membershipId || '').toLowerCase().includes(s)
-      );
+      const s = new RegExp(search, 'i');
+      query.$or = [
+        { firstName: s },
+        { lastName: s },
+        { email: s },
+        { membershipId: s }
+      ];
     }
 
-    // Remove password from response
-    const safeUsers = users.map(({ password, ...u }) => u);
-    res.json({ success: true, data: safeUsers });
+    const users = await User.find(query).select('-password');
+    res.json({ success: true, data: users });
   } catch (err) {
     console.error('Admin get members error:', err);
     res.status(500).json({ success: false, message: 'Server error' });
@@ -85,26 +86,23 @@ router.get('/members', adminRequired, (req, res) => {
 });
 
 // PUT /api/admin/members/:id/approve — Approve member
-router.put('/members/:id/approve', adminRequired, (req, res) => {
+router.put('/members/:id/approve', adminRequired, async (req, res) => {
   try {
-    const user = usersDB.findById(req.params.id);
+    const user = await User.findById(req.params.id);
     if (!user) return res.status(404).json({ success: false, message: 'Member not found' });
 
     const now = new Date();
     const expiry = new Date(now);
     expiry.setFullYear(expiry.getFullYear() + 1);
 
-    const updated = usersDB.update(req.params.id, {
+    const updated = await User.findByIdAndUpdate(req.params.id, {
       membershipStatus: 'approved',
       verification_status: 'verified',
-      membership_start: now.toISOString(),
-      membership_expiry: expiry.toISOString(),
-      approvedAt: now.toISOString(),
-      approvedBy: req.user.id,
-    });
+      membership_start: now,
+      membership_expiry: expiry,
+    }, { new: true }).select('-password');
 
-    const { password, ...safe } = updated;
-    res.json({ success: true, message: 'Member approved successfully', user: safe });
+    res.json({ success: true, message: 'Member approved successfully', user: updated });
   } catch (err) {
     console.error('Admin approve member error:', err);
     res.status(500).json({ success: false, message: 'Server error' });
@@ -112,21 +110,17 @@ router.put('/members/:id/approve', adminRequired, (req, res) => {
 });
 
 // PUT /api/admin/members/:id/reject — Reject member
-router.put('/members/:id/reject', adminRequired, (req, res) => {
+router.put('/members/:id/reject', adminRequired, async (req, res) => {
   try {
-    const user = usersDB.findById(req.params.id);
+    const user = await User.findById(req.params.id);
     if (!user) return res.status(404).json({ success: false, message: 'Member not found' });
 
-    const updated = usersDB.update(req.params.id, {
+    const updated = await User.findByIdAndUpdate(req.params.id, {
       membershipStatus: 'rejected',
       verification_status: 'rejected',
-      rejectedAt: new Date().toISOString(),
-      rejectedBy: req.user.id,
-      rejectionReason: req.body.reason || '',
-    });
+    }, { new: true }).select('-password');
 
-    const { password, ...safe } = updated;
-    res.json({ success: true, message: 'Member rejected', user: safe });
+    res.json({ success: true, message: 'Member rejected', user: updated });
   } catch (err) {
     console.error('Admin reject member error:', err);
     res.status(500).json({ success: false, message: 'Server error' });
@@ -134,20 +128,16 @@ router.put('/members/:id/reject', adminRequired, (req, res) => {
 });
 
 // PUT /api/admin/members/:id/suspend — Suspend member
-router.put('/members/:id/suspend', adminRequired, (req, res) => {
+router.put('/members/:id/suspend', adminRequired, async (req, res) => {
   try {
-    const user = usersDB.findById(req.params.id);
+    const user = await User.findById(req.params.id);
     if (!user) return res.status(404).json({ success: false, message: 'Member not found' });
 
-    const updated = usersDB.update(req.params.id, {
+    const updated = await User.findByIdAndUpdate(req.params.id, {
       membershipStatus: 'suspended',
-      suspendedAt: new Date().toISOString(),
-      suspendedBy: req.user.id,
-      suspensionReason: req.body.reason || '',
-    });
+    }, { new: true }).select('-password');
 
-    const { password, ...safe } = updated;
-    res.json({ success: true, message: 'Member suspended', user: safe });
+    res.json({ success: true, message: 'Member suspended', user: updated });
   } catch (err) {
     console.error('Admin suspend member error:', err);
     res.status(500).json({ success: false, message: 'Server error' });

@@ -3,19 +3,19 @@
 // import Layout from '../components/Layout';
 // import { useAuth } from '../context/AuthContext';
 // import { api } from '../api/api';
-
+//
 // export default function NewsUpload() {
 //   const { user } = useAuth();
 //   const navigate = useNavigate();
 //   const [alert, setAlert] = useState(null);
 //   const [preview, setPreview] = useState(null);
 //   const [loading, setLoading] = useState(false);
-
+//
 //   const handleImageChange = e => {
 //     const file = e.target.files[0];
 //     if (file) { const r = new FileReader(); r.onload = ev => setPreview(ev.target.result); r.readAsDataURL(file); }
 //   };
-
+//
 //   const handleSubmit = async (e, submitAction = 'publish') => {
 //     e.preventDefault();
 //     if (!user) { window.alert('Please login first to upload news.'); navigate('/login'); return; }
@@ -34,7 +34,7 @@
 //     }
 //     setLoading(false);
 //   };
-
+//
 //   return (
 //     <Layout>
 //       <div className="page-header"><div className="container"><h1><i className="fas fa-upload"></i> News Upload</h1><div className="breadcrumb"><a href="/">Home</a> / News Upload</div></div></div>

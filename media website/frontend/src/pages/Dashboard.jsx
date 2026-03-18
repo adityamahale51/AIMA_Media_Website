@@ -2,14 +2,14 @@
 // import { Link, useNavigate } from 'react-router-dom';
 // import Layout from '../components/Layout';
 // import { useAuth } from '../context/AuthContext';
-
+//
 // export default function Dashboard() {
 //   const { user } = useAuth();
 //   const navigate = useNavigate();
-
+//
 //   useEffect(() => { if (!user) navigate('/login'); }, [user, navigate]);
 //   if (!user) return null;
-
+//
 //   const cards = [
 //     { title: 'List', desc: 'View your members & readers', icon: 'fas fa-list', bg: 'bg-primary', links: [{ to: '#', icon: 'fas fa-users', label: 'My Members' }, { to: '#', icon: 'fas fa-book-reader', label: 'My News Readers' }] },
 //     { title: 'Create', desc: 'Post news & add members', icon: 'fas fa-plus-circle', bg: 'bg-secondary', links: [{ to: '/news-upload', icon: 'fas fa-pen-fancy', label: 'Create Post' }, { to: '#', icon: 'fas fa-user-plus', label: 'Add Member' }, { to: '#', icon: 'fas fa-user-friends', label: 'Add News Reader' }] },
@@ -18,18 +18,18 @@
 //     { title: 'Profile', desc: 'Manage your account', icon: 'fas fa-user-circle', bg: 'bg-purple', links: [{ to: '/profile', icon: 'fas fa-user', label: 'View Profile' }, { to: '/edit-profile', icon: 'fas fa-edit', label: 'Edit Profile' }, { to: '#', icon: 'fas fa-chart-line', label: 'Profile Status' }] },
 //     { title: 'Membership', desc: 'Plans & Invoices', icon: 'fas fa-crown', bg: 'bg-teal', links: [{ to: '/membership-plans', icon: 'fas fa-tags', label: 'View Plans' }, { to: '/membership-plans', icon: 'fas fa-sync', label: 'Renew Membership' }, { to: '/membership-plans', icon: 'fas fa-arrow-up', label: 'Upgrade Plan' }, { to: '/invoices', icon: 'fas fa-file-invoice', label: 'Invoice History' }] },
 //   ];
-
+//
 //   // Show membership status banner
 //   const showStatusBanner = user.membershipStatus && user.membershipStatus !== 'approved';
-
+//
 //   return (
 //     <Layout>
 //       <div className="dashboard-welcome">
 //         <h2>Welcome, {user.firstName} {user.lastName}!</h2>
-//         <p>AIMA Media Dashboard — Manage your news, members, and profile</p>
+//         <p>IDMF Media Dashboard — Manage your news, members, and profile</p>
 //         {user.selectedPlanName && <p style={{ marginTop: '6px', fontSize: '12px', opacity: 0.8 }}><i className="fas fa-crown"></i> {user.selectedPlanName} Member | ID: {user.membershipId}</p>}
 //       </div>
-
+//
 //       {showStatusBanner && (
 //         <div style={{ maxWidth: '1200px', margin: '16px auto', padding: '0 15px' }}>
 //           <div style={{ background: user.membershipStatus === 'pending' ? '#fff3e0' : '#ffebee', padding: '14px 20px', borderRadius: 'var(--radius)', display: 'flex', alignItems: 'center', gap: '12px', borderLeft: `4px solid ${user.membershipStatus === 'pending' ? '#ff8f00' : '#c62828'}` }}>
@@ -48,7 +48,7 @@
 //           </div>
 //         </div>
 //       )}
-
+//
 //       <div className="dash-stats">
 //         {[
 //           { num: user.postsCount || 0, label: 'My News Posts', icon: 'fas fa-newspaper' },
@@ -70,7 +70,7 @@
 //           </div>
 //         ))}
 //       </div>
-
+//
 //       {user.role === 'admin' && (
 //         <div style={{ maxWidth: '1200px', margin: '20px auto', padding: '0 15px' }}>
 //           <Link to="/admin" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', padding: '16px', background: 'linear-gradient(135deg, var(--primary), var(--primary-light))', color: 'white', borderRadius: 'var(--radius)', boxShadow: 'var(--shadow)', fontSize: '16px', fontWeight: 600 }}>
@@ -81,6 +81,7 @@
 //     </Layout>
 //   );
 // }
+
 
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -152,7 +153,7 @@ const GlobalStyles = () => (
       font-family:'DM Sans',sans-serif;
       font-size:10px; font-weight:700;
       letter-spacing:2px; text-transform:uppercase;
-      color:#c8972a; margin-bottom:8px;
+      color:#c8972a; margin-bottom:10px;
     }
     .db-welcome-name {
       font-family:'Playfair Display',serif;
@@ -491,7 +492,7 @@ export default function Dashboard() {
             <h2 className="db-welcome-name">
               Welcome, <em>{user.firstName} {user.lastName}</em>!
             </h2>
-            <p className="db-welcome-sub">AIMA Media — Manage your news, members, and profile</p>
+            <p className="db-welcome-sub">IDMF Media Dashboard — Manage your news, members, and profile</p>
             {user.selectedPlanName && (
               <div className="db-plan-pill">
                 <i className="fas fa-crown" />

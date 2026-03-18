@@ -1,16 +1,16 @@
 // import { useState } from 'react';
 // import { Link, useNavigate } from 'react-router-dom';
 // import { useAuth } from '../context/AuthContext';
-
+//
 // export default function Register() {
 //   const [form, setForm] = useState({ firstName: '', lastName: '', email: '', mobile: '', state: '', city: '', organization: '', designation: '', password: '', confirmPassword: '' });
 //   const [alert, setAlert] = useState(null);
 //   const [loading, setLoading] = useState(false);
 //   const { register } = useAuth();
 //   const navigate = useNavigate();
-
+//
 //   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
-
+//
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     setLoading(true);
@@ -23,14 +23,14 @@
 //       setAlert({ type: 'error', msg: result.message });
 //     }
 //   };
-
+//
 //   const states = ['Uttar Pradesh','Madhya Pradesh','Rajasthan','Bihar','Punjab','Haryana','Delhi','Maharashtra','Karnataka','Gujarat','Chandigarh','Andhra Pradesh','Tamil Nadu','West Bengal','Orissa','Telangana','Other'];
 //   const designations = ['Editor','Reporter','Journalist','Photographer','Cameraman','Anchor','Bureau Chief','Freelancer','Other'];
-
+//
 //   return (
 //     <div className="auth-page">
 //       <div className="auth-container" style={{ maxWidth: '550px' }}>
-//         <div className="auth-header"><div className="logo">AIMA <span>MEDIA</span></div><p>Join All India Media Association</p></div>
+//         <div className="auth-header"><div className="logo">IDMF <span>MEDIA</span></div><p>Join All India Media Association</p></div>
 //         <div className="auth-body">
 //           {alert && <div className={`alert alert-${alert.type}`}><i className={`fas fa-${alert.type === 'success' ? 'check' : 'exclamation'}-circle`}></i> {alert.msg}</div>}
 //           <form onSubmit={handleSubmit}>
@@ -54,7 +54,7 @@
 //               <div className="form-group"><label><i className="fas fa-lock"></i> Password</label><input name="password" type="password" value={form.password} onChange={handleChange} placeholder="Create password" required /></div>
 //               <div className="form-group"><label>Confirm Password</label><input name="confirmPassword" type="password" value={form.confirmPassword} onChange={handleChange} placeholder="Confirm password" required /></div>
 //             </div>
-//             <div style={{ marginBottom: '18px' }}><label style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '12px', cursor: 'pointer' }}><input type="checkbox" required style={{ marginTop: '3px' }} />I agree to the Terms &amp; Conditions and Privacy Policy of AIMA Media.</label></div>
+//             <div style={{ marginBottom: '18px' }}><label style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '12px', cursor: 'pointer' }}><input type="checkbox" required style={{ marginTop: '3px' }} />I agree to the Terms &amp; Conditions and Privacy Policy of IDMF Media.</label></div>
 //             <button type="submit" className="btn btn-primary btn-block btn-lg" disabled={loading}>{loading ? <><i className="fas fa-spinner fa-spin"></i> Registering...</> : <><i className="fas fa-user-plus"></i> Register / Join</>}</button>
 //           </form>
 //         </div>
@@ -66,6 +66,8 @@
 //     </div>
 //   );
 // }
+
+
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -178,7 +180,7 @@ const STATES = ['Uttar Pradesh','Madhya Pradesh','Rajasthan','Bihar','Punjab','H
 const DESIGNATIONS = ['Editor','Reporter','Journalist','Photographer','Cameraman','Anchor','Bureau Chief','Freelancer','Other'];
 
 const perks = [
-  'Official Press ID Card issued by AIMA',
+  'Official Press ID Card issued by IDMF',
   'Access to exclusive media events & summits',
   'Legal support & press freedom protection',
   'Pan-India network of 50,000+ journalists',
@@ -266,12 +268,12 @@ export default function Register() {
 
             <h1 className="font-playfair font-black text-white leading-none tracking-tight mb-2"
                 style={{ fontSize:'clamp(48px,4.5vw,72px)' }}>
-              AIMA{' '}
+              IDMF{' '}
               <em style={{ fontStyle:'italic', color:'#c8972a' }}>Media</em>
             </h1>
             <p className="font-medium tracking-[4px] uppercase mb-8"
                style={{ fontSize:'11px', color:'rgba(255,255,255,.35)' }}>
-              All India Media Association
+              Independent Digital Media Foundation
             </p>
 
             <div className="w-14 h-[2px] mb-8 rounded-full"
@@ -323,10 +325,10 @@ export default function Register() {
               <div className="lg:hidden mb-10 text-center">
                 <div className="font-playfair font-black tracking-tight leading-none"
                      style={{ fontSize:'40px', color:'#1e3a5f' }}>
-                  AIMA <em style={{ fontStyle:'italic', color:'#c8972a' }}>Media</em>
+                  IDMF <em style={{ fontStyle:'italic', color:'#c8972a' }}>Media</em>
                 </div>
                 <p className="tracking-[3px] uppercase text-slate-400 mt-2" style={{ fontSize:'11px' }}>
-                  All India Media Association
+                  Independent Digital Media Foundation
                 </p>
               </div>
 
@@ -344,7 +346,7 @@ export default function Register() {
                   Create Your Account
                 </h2>
                 <p className="text-slate-400 leading-relaxed" style={{ fontSize:'15px' }}>
-                  Fill in your details below to apply for AIMA Media membership.
+                  Fill in your details below to apply for IDMF Media membership.
                 </p>
               </div>
 
@@ -458,7 +460,7 @@ export default function Register() {
                       <a href="#" onClick={e => e.preventDefault()}
                          className="font-semibold hover:underline" style={{ color:'#1e3a5f' }}>
                         Privacy Policy
-                      </a>{' '}of AIMA Media.
+                      </a>{' '}of IDMF Media.
                     </span>
                   </label>
                 </div>
@@ -467,7 +469,7 @@ export default function Register() {
                 <button type="submit" className="btn-primary" disabled={loading}>
                   {loading
                     ? <><div className="spinner" /> Registering…</>
-                    : <><IUserPlus /> Register / Join AIMA</>}
+                    : <><IUserPlus /> Register / Join IDMF</>}
                 </button>
 
                 {/* Privacy note */}

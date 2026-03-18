@@ -375,14 +375,34 @@ export default function MembershipPlans() {
     setSubscribing(planId);
     try {
       const res = await api.subscribePlan(planId);
-      const confirmed = window.confirm(
-        `Plan: ${res.data.plan.name}\nAmount: ₹${res.data.plan.price}\n\nClick OK to simulate payment (Razorpay integration required for production).`
-      );
-      if (confirmed) {
-        await api.confirmPayment(res.data.transaction.id, 'simulated-' + Date.now());
-        setAlert({ type: 'success', msg: 'Payment successful! Your membership is now pending admin approval. You will be notified once approved.' });
-        window.scrollTo(0, 0);
-      }
+      const { transaction, razorpay_key, amount, currency, name, description, prefill } = res.data;
+
+      const options = {
+        key: razorpay_key,
+        amount: amount,
+        currency: currency,
+        name: name,
+        description: description,
+        image: 'https://ui-avatars.com/api/?name=IDMF&background=1e3a5f&color=c8972a',
+        order_id: null, // If using Razorpay Orders API, set it here
+        handler: async function (response) {
+          try {
+            await api.confirmPayment(transaction.id, response.razorpay_payment_id);
+            setAlert({ type: 'success', msg: 'Payment successful! Your membership is now pending admin approval.' });
+            window.scrollTo(0, 0);
+          } catch (err) {
+            setAlert({ type: 'error', msg: 'Payment confirmation failed. Please contact support.' });
+          }
+        },
+        prefill: prefill,
+        theme: { color: '#1e3a5f' },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.on('payment.failed', function (response) {
+        setAlert({ type: 'error', msg: 'Payment failed: ' + response.error.description });
+      });
+      rzp.open();
     } catch (err) {
       setAlert({ type: 'error', msg: err.message });
     }
@@ -400,7 +420,7 @@ export default function MembershipPlans() {
             <div style={{ display:'flex', alignItems:'center', gap:12, marginBottom:14 }}>
               <div className="gold-rule" style={{ width:32 }} />
               <span style={{ fontSize:10, fontWeight:700, letterSpacing:'2.5px', textTransform:'uppercase', color:'rgba(200,151,42,.8)', fontFamily:'DM Sans,sans-serif' }}>
-                Join AIMA
+                Join IDMF
               </span>
             </div>
 

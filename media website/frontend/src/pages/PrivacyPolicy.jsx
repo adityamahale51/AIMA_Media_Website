@@ -553,7 +553,7 @@ export default function PrivacyPolicy() {
                   <div className="pp-highlight-box" style={{ marginTop:'10px' }}>
                     <i className="fas fa-envelope" />
                     <div>
-                      <strong>privacy@aimamedia.org</strong>
+                      <strong>privacy@idmfmedia.org</strong>
                       <div style={{ fontSize:'12.5px', color:'#94a3b8', marginTop:'2px' }}>We aim to respond within 48 hours on business days.</div>
                     </div>
                   </div>
@@ -577,7 +577,7 @@ export default function PrivacyPolicy() {
                 <span>
                   This Privacy Policy is effective as of <strong style={{ color:'#1e3a5f' }}>January 1, 2026</strong>.
                   By using the AIMA Media platform, you agree to the collection and use of information as described in this policy.
-                  Contact us at <strong style={{ color:'#1e3a5f' }}>privacy@aimamedia.org</strong> for any concerns.
+                  Contact us at <strong style={{ color:'#1e3a5f' }}>privacy@idmfmedia.org</strong> for any concerns.
                 </span>
               </div>
 

@@ -2,12 +2,12 @@
 // import Layout from '../components/Layout';
 // import { api } from '../api/api';
 // import { stateFilters } from '../data/staticData';
-
+//
 // export default function Members() {
 //   const [activeState, setActiveState] = useState('All');
 //   const [members, setMembers] = useState([]);
 //   const [loading, setLoading] = useState(true);
-
+//
 //   useEffect(() => {
 //     setLoading(true);
 //     api.getMembers(activeState)
@@ -15,7 +15,7 @@
 //       .catch(() => {})
 //       .finally(() => setLoading(false));
 //   }, [activeState]);
-
+//
 //   return (
 //     <Layout>
 //       <div className="page-header"><div className="container"><h1><i className="fas fa-users"></i> Members</h1><div className="breadcrumb"><a href="/">Home</a> / Members</div></div></div>
@@ -34,7 +34,7 @@
 //               <div className="avatar"><img src={m.avatar} alt={m.name} onError={e => { e.target.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(m.name) + '&background=1a237e&color=fff'; }} /></div>
 //               <div className="name">{m.name}</div>
 //               <div className="location"><i className="fas fa-map-marker-alt"></i> {m.location}</div>
-//               <div className="member-badge">AIMAMEDIA</div>
+//               <div className="member-badge">IDMFMEDIA</div>
 //             </div>
 //           ))}
 //           {!loading && members.length === 0 && <p style={{ gridColumn: '1/-1', textAlign: 'center', padding: '40px', color: 'var(--text-light)' }}>No members found for this state.</p>}
@@ -527,7 +527,7 @@ export default function Members() {
                     </p>
                   )}
 
-                  <div className="member-badge">AIMAMEDIA</div>
+                  <div className="member-badge">IDMFMEDIA</div>
                 </div>
               </div>
             ))}

@@ -385,8 +385,8 @@ const Ic = {
 const infoItems = [
   { Icon: Ic.Map,   title: 'Address',       text: 'AIMA Media Foundation\nMeerut, Uttar Pradesh, India' },
   { Icon: Ic.Phone, title: 'Phone',          text: '+91 XXXXX XXXXX' },
-  { Icon: Ic.Mail,  title: 'Email',          text: 'info@aimamedia.org' },
-  { Icon: Ic.Globe, title: 'Website',        text: 'www.aimamedia.org' },
+  { Icon: Ic.Mail,  title: 'Email',          text: 'info@idmfmedia.org' },
+  { Icon: Ic.Globe, title: 'Website',        text: 'www.idmfmedia.org' },
   { Icon: Ic.Clock, title: 'Working Hours',  text: 'Monday – Saturday: 10:00 AM – 6:00 PM' },
 ];
 

@@ -403,7 +403,7 @@ export default function TermsConditions() {
                 <i className="fas fa-info-circle" />
                 <span>
                   For questions about these Terms &amp; Conditions, please contact us at&nbsp;
-                  <strong style={{ color:'#1e3a5f' }}>info@aimamedia.org</strong>.
+                  <strong style={{ color:'#1e3a5f' }}>info@idmfmedia.org</strong>.
                   These terms were last updated on <strong style={{ color:'#1e3a5f' }}>January 1, 2026</strong>.
                 </span>
               </div>

@@ -3,13 +3,13 @@
 // import Layout from '../components/Layout';
 // import { useAuth } from '../context/AuthContext';
 // import { api } from '../api/api';
-
+//
 // export default function DigitalID() {
 //   const { user } = useAuth();
 //   const navigate = useNavigate();
 //   const [idData, setIdData] = useState(null);
 //   const [loading, setLoading] = useState(true);
-
+//
 //   useEffect(() => {
 //     if (!user) { navigate('/login'); return; }
 //     api.getDigitalId()
@@ -17,14 +17,14 @@
 //       .catch(() => {})
 //       .finally(() => setLoading(false));
 //   }, [user, navigate]);
-
+//
 //   if (!user) return null;
-
+//
 //   const handlePrint = () => {
 //     const printContent = document.getElementById('digital-id-card');
 //     if (!printContent) return;
 //     const w = window.open('', '_blank');
-//     w.document.write(`<html><head><title>IDMA Digital ID - ${idData?.name}</title><style>
+//     w.document.write(`<html><head><title>IDMF Digital ID - ${idData?.name}</title><style>
 //       * { margin: 0; padding: 0; box-sizing: border-box; }
 //       body { font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f5f5f5; }
 //       .id-card { width: 380px; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
@@ -51,9 +51,9 @@
 //     w.document.close();
 //     setTimeout(() => { w.print(); w.close(); }, 300);
 //   };
-
+//
 //   const qrUrl = idData ? `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(idData.qrData)}` : '';
-
+//
 //   return (
 //     <Layout>
 //       <div className="page-header"><div className="container"><h1><i className="fas fa-id-card"></i> Digital ID Card</h1><div className="breadcrumb"><Link to="/">Home</Link> / <Link to="/dashboard">Dashboard</Link> / Digital ID</div></div></div>
@@ -63,8 +63,8 @@
 //             <div id="digital-id-card">
 //               <div className="id-card" style={{ width: '100%', maxWidth: '400px', margin: '0 auto', background: 'white', borderRadius: '12px', overflow: 'hidden', boxShadow: 'var(--shadow-lg)' }}>
 //                 <div style={{ background: 'linear-gradient(135deg, var(--primary-dark), var(--primary-light))', color: 'white', padding: '20px', textAlign: 'center' }}>
-//                   <h2 style={{ fontSize: '22px', letterSpacing: '3px', fontWeight: 800 }}>IDMA</h2>
-//                   <p style={{ fontSize: '11px', opacity: 0.8, marginTop: '2px' }}>Indian Digital Media Association</p>
+//                   <h2 style={{ fontSize: '22px', letterSpacing: '3px', fontWeight: 800 }}>IDMF</h2>
+//                   <p style={{ fontSize: '11px', opacity: 0.8, marginTop: '2px' }}>Independent Digital Media Foundation</p>
 //                 </div>
 //                 <div style={{ padding: '20px', textAlign: 'center' }}>
 //                   <div style={{ width: '80px', height: '80px', borderRadius: '50%', margin: '0 auto 12px', background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '32px', fontWeight: 700, border: '3px solid var(--accent)' }}>
@@ -75,7 +75,7 @@
 //                   {idData.organization && <div style={{ fontSize: '12px', color: 'var(--text-light)' }}>{idData.organization}</div>}
 //                   <div style={{ marginTop: '8px' }}>
 //                     <span style={{ display: 'inline-block', background: 'var(--primary)', color: 'white', padding: '3px 14px', borderRadius: '12px', fontSize: '11px', fontWeight: 600 }}>{idData.tier} Member</span>
-//                     <span style={{ display: 'inline-block', marginLeft: '6px', padding: '3px 14px', borderRadius: '12px', fontSize: '11px', fontWeight: 600, background: idData.status === 'approved' ? '#e8f5e9' : '#fff3e0', color: idData.status === 'approved' ? '#2e7d32' : '#ff8f00' }}>{idData.status === 'approved' ? 'Verified' : 'Pending'}</span>
+//                     <span style={{ display: 'inline-block', marginLeft: '6px', padding: '3px 14px', borderRadius: '12px', fontSize: '11px', fontWeight: 600, background: idData.status === 'approved' || idData.status === 'verified' ? '#e8f5e9' : '#fff3e0', color: idData.status === 'approved' || idData.status === 'verified' ? '#2e7d32' : '#ff8f00' }}>{idData.status === 'approved' || idData.status === 'verified' ? 'Verified' : 'Pending'}</span>
 //                   </div>
 //                   <div style={{ marginTop: '16px', textAlign: 'left' }}>
 //                     {[
@@ -424,7 +424,7 @@ export default function DigitalID() {
     const printContent = document.getElementById('di-printable');
     if (!printContent) return;
     const w = window.open('', '_blank');
-    w.document.write(`<html><head><title>AIMA Digital ID — ${idData?.name}</title><style>
+    w.document.write(`<html><head><title>IDMF Digital ID — ${idData?.name}</title><style>
       @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900&family=DM+Sans:wght@400;600&display=swap');
       * { margin:0; padding:0; box-sizing:border-box; }
       body { font-family:'DM Sans',sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; background:#f5f5f5; }
@@ -451,15 +451,15 @@ export default function DigitalID() {
     </style></head><body>
       <div class="card">
         <div class="ch">
-          <h2>AIMA <em>Media</em></h2>
-          <p>All India Media Association</p>
+          <h2>IDMF <em>Media</em></h2>
+          <p>Independent Digital Media Foundation</p>
         </div>
         <div class="cb">
           <div class="av">${idData?.name?.charAt(0) || 'A'}</div>
           <div class="nm">${idData?.name || ''}</div>
           <div class="ds">${[idData?.designation, idData?.organization].filter(Boolean).join(' · ')}</div>
           <span class="bg"><i>&#9733;</i> ${idData?.tier || ''} Member</span>
-          <span class="bs">&#10003; ${idData?.status === 'approved' ? 'Verified' : 'Pending'}</span>
+          <span class="bs">&#10003; ${idData?.status === 'approved' || idData?.status === 'verified' ? 'Verified' : 'Pending'}</span>
           <div class="dt">
             <div class="dr"><span class="dl">Membership ID</span><span class="dv">${idData?.membershipId || ''}</span></div>
             <div class="dr"><span class="dl">Location</span><span class="dv">${[idData?.city, idData?.state].filter(Boolean).join(', ')}</span></div>
@@ -471,7 +471,7 @@ export default function DigitalID() {
             <div class="qrl">Scan to verify membership</div>
           </div>
         </div>
-        <div class="cf"><p>${idData?.disclaimer || 'This is an official AIMA Media digital membership card.'}</p></div>
+        <div class="cf"><p>${idData?.disclaimer || 'This is an official IDMF Media digital membership card.'}</p></div>
       </div>
     </body></html>`);
     w.document.close();
@@ -549,8 +549,8 @@ export default function DigitalID() {
                     <span className="di-pulse" style={{ width:'5px', height:'5px', borderRadius:'50%', background:'#c8972a', display:'inline-block' }} />
                     Official ID
                   </div>
-                  <div className="di-card-org">AIMA <em>Media</em></div>
-                  <div className="di-card-org-sub">All India Media Association</div>
+                  <div className="di-card-org">IDMF <em>Media</em></div>
+                  <div className="di-card-org-sub">Independent Digital Media Foundation</div>
                 </div>
 
                 {/* Body */}
@@ -570,9 +570,9 @@ export default function DigitalID() {
                       <i className="fas fa-crown" style={{ fontSize:'9px' }} />
                       {idData.tier} Member
                     </span>
-                    <span className={`di-badge-status ${idData.status}`}>
-                      <i className={`fas fa-${idData.status === 'approved' ? 'check' : 'clock'}`} style={{ fontSize:'9px' }} />
-                      {idData.status === 'approved' ? 'Verified' : 'Pending'}
+                    <span className={`di-badge-status ${idData.status === 'verified' ? 'approved' : idData.status}`}>
+                      <i className={`fas fa-${idData.status === 'approved' || idData.status === 'verified' ? 'check' : 'clock'}`} style={{ fontSize:'9px' }} />
+                      {idData.status === 'approved' || idData.status === 'verified' ? 'Verified' : 'Pending'}
                     </span>
                   </div>
 
@@ -595,7 +595,7 @@ export default function DigitalID() {
 
                 {/* Footer */}
                 <div className="di-card-footer">
-                  <p>{idData.disclaimer || 'This is an official AIMA Media digital membership card.'}</p>
+                  <p>{idData.disclaimer || 'This is an official IDMF Media digital membership card.'}</p>
                 </div>
               </div>
 

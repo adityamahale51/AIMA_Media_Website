@@ -2,23 +2,23 @@
 // import { Link, useNavigate } from 'react-router-dom';
 // import Layout from '../components/Layout';
 // import { useAuth } from '../context/AuthContext';
-
+//
 // export default function EditProfile() {
 //   const { user, updateProfile } = useAuth();
 //   const navigate = useNavigate();
 //   const [form, setForm] = useState({});
 //   const [alert, setAlert] = useState(null);
 //   const [loading, setLoading] = useState(false);
-
+//
 //   useEffect(() => {
 //     if (!user) { navigate('/login'); return; }
 //     setForm({ firstName: user.firstName || '', lastName: user.lastName || '', email: user.email || '', mobile: user.mobile || '', state: user.state || '', city: user.city || '', organization: user.organization || '', designation: user.designation || '', bio: user.bio || '', linkedin: user.linkedin || '', website: user.website || '', skills: user.skills || '' });
 //   }, [user, navigate]);
-
+//
 //   if (!user) return null;
 //   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 //   const fullName = `${form.firstName} ${form.lastName}`;
-
+//
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     setLoading(true);
@@ -27,10 +27,10 @@
 //     if (result.success) { setAlert({ type: 'success', msg: 'Profile updated successfully!' }); window.scrollTo(0, 0); }
 //     else setAlert({ type: 'error', msg: result.message });
 //   };
-
+//
 //   const states = ['Uttar Pradesh','Madhya Pradesh','Rajasthan','Bihar','Punjab','Haryana','Delhi','Maharashtra','Karnataka','Gujarat','Chandigarh','Andhra Pradesh','Tamil Nadu','West Bengal','Orissa','Telangana','Other'];
 //   const designations = ['Editor','Reporter','Journalist','Photographer','Cameraman','Anchor','Bureau Chief','Freelancer','Other'];
-
+//
 //   return (
 //     <Layout>
 //       <div className="page-header"><div className="container"><h1><i className="fas fa-edit"></i> Edit Profile</h1><div className="breadcrumb"><Link to="/">Home</Link> / <Link to="/dashboard">Dashboard</Link> / Edit Profile</div></div></div>
@@ -74,7 +74,6 @@
 //     </Layout>
 //   );
 // }
-
 
 
 import { useState, useEffect } from 'react';
@@ -358,7 +357,7 @@ const GlobalStyles = () => (
 /* ── Tiny icons ───────────────────────────────────────────── */
 const Ic = {
   Check: ()=><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5"/></svg>,
-  Warn:  ()=><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>,
+  Warn:  ()=><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>,
   Save:  ()=><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>,
   X:     ()=><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>,
 };
@@ -453,7 +452,7 @@ export default function EditProfile() {
               <img
                 src={`https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=162d4a&color=c8972a&size=200`}
                 alt="Profile"
-                onError={e => { e.target.src = 'https://aimamedia.org/img/noimage.jpg'; }}
+                onError={e => { e.target.src = 'https://ui-avatars.com/api/?name=U&background=162d4a&color=c8972a'; }}
               />
             </div>
             <div className="ep-sidebar-name">{fullName}</div>

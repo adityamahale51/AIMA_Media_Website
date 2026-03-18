@@ -130,7 +130,7 @@ async function seed() {
       id: 'demo001',
       firstName: 'Demo',
       lastName: 'User',
-      email: 'demo@aimamedia.org',
+      email: 'demo@idmfmedia.org',
       mobile: '9999999999',
       state: 'Uttar Pradesh',
       city: 'Meerut',
@@ -294,7 +294,7 @@ async function seed() {
   fs.writeFileSync(path.join(dataDir, 'contacts.json'), '[]');
 
   console.log('Database seeded successfully!');
-  console.log('  Demo login:  demo@aimamedia.org / demo123');
+  console.log('  Demo login:  demo@idmfmedia.org / demo123');
   console.log('  Admin login: admin@idma.org / admin123');
   console.log('  Plans: ' + plans.length + ' | Categories: ' + categories.length);
   console.log('  News: ' + news.length + ' | Members: ' + members.length + ' | Gallery: ' + gallery.length);

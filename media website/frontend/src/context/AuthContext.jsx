@@ -9,11 +9,11 @@ export function AuthProvider({ children }) {
 
   // On mount, check for existing token and load user
   useEffect(() => {
-    const token = localStorage.getItem('aimaToken');
+    const token = localStorage.getItem('idmfToken');
     if (token) {
       api.getMe()
         .then(data => setUser(data.user))
-        .catch(() => localStorage.removeItem('aimaToken'))
+        .catch(() => localStorage.removeItem('idmfToken'))
         .finally(() => setLoading(false));
     } else {
       setLoading(false);
@@ -23,7 +23,7 @@ export function AuthProvider({ children }) {
   const login = async (email, password) => {
     try {
       const data = await api.login(email, password);
-      localStorage.setItem('aimaToken', data.token);
+      localStorage.setItem('idmfToken', data.token);
       setUser(data.user);
       return { success: true };
     } catch (err) {
@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
   const register = async (formData) => {
     try {
       const data = await api.register(formData);
-      localStorage.setItem('aimaToken', data.token);
+      localStorage.setItem('idmfToken', data.token);
       setUser(data.user);
       return { success: true, membershipId: data.user.membershipId };
     } catch (err) {
@@ -43,7 +43,7 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
-    localStorage.removeItem('aimaToken');
+    localStorage.removeItem('idmfToken');
     setUser(null);
   };
 

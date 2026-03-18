@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = process.env.JWT_SECRET || 'aima-media-jwt-secret-key-2026-secure';
+const JWT_SECRET = process.env.JWT_SECRET || 'idmf-media-jwt-secret-key-2026-secure';
 
 // Required auth - returns 401 if no token
 const authRequired = (req, res, next) => {

@@ -1,17 +1,17 @@
 const express = require('express');
-const JsonDB = require('../utils/db');
+const User = require('../models/User');
 
 const router = express.Router();
-const membersDB = new JsonDB('members.json');
 
 // GET /api/members — Get all members
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    let members = membersDB.findAll();
     const { state } = req.query;
+    let query = { role: 'member', membershipStatus: 'approved' };
     if (state && state !== 'All') {
-      members = members.filter(m => m.state === state);
+      query.state = state;
     }
+    const members = await User.find(query).select('-password');
     res.json({ success: true, data: members });
   } catch (err) {
     console.error('Get members error:', err);
@@ -20,17 +20,11 @@ router.get('/', (req, res) => {
 });
 
 // GET /api/members/active — Get most active members
-router.get('/active', (req, res) => {
+router.get('/active', async (req, res) => {
   try {
-    const members = membersDB.findAll();
-    // Return members marked as active, or first 6
-    const active = members.filter(m => m.isActive).slice(0, 6);
-    if (active.length === 0) {
-      // Fallback: return first 6 members
-      res.json({ success: true, data: members.slice(0, 6) });
-    } else {
-      res.json({ success: true, data: active });
-    }
+    // Return first 6 approved members
+    const active = await User.find({ role: 'member', membershipStatus: 'approved' }).limit(6).select('-password');
+    res.json({ success: true, data: active });
   } catch (err) {
     console.error('Get active members error:', err);
     res.status(500).json({ success: false, message: 'Server error' });

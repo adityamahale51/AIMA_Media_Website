@@ -39,7 +39,7 @@ export default function Verification() {
               <h2 style={{ fontSize: '22px', fontWeight: 700 }}>
                 {data.status === 'approved' ? 'Verified Member' : 'Verification Pending'}
               </h2>
-              <p style={{ opacity: 0.9, fontSize: '13px', marginTop: '4px' }}>IDMA - Indian Digital Media Association</p>
+              <p style={{ opacity: 0.9, fontSize: '13px', marginTop: '4px' }}>IDMF - Independent Digital Media Foundation</p>
             </div>
             <div style={{ padding: '24px' }}>
               <div style={{ textAlign: 'center', marginBottom: '20px' }}>

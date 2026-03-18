@@ -545,7 +545,7 @@ export default function Disclaimer() {
                 <i className="fas fa-info-circle" />
                 <span>
                   For any clarifications regarding this disclaimer, please contact us at{' '}
-                  <strong style={{ color:'#1e3a5f' }}>info@aimamedia.org</strong>.
+                  <strong style={{ color:'#1e3a5f' }}>info@idmfmedia.org</strong>.
                   By using this platform, you acknowledge that you have read and understood this disclaimer.
                 </span>
               </div>

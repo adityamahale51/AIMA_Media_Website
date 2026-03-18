@@ -15,6 +15,8 @@ import Admin from './pages/Admin';
 import MembershipPlans from './pages/MembershipPlans';
 import DigitalID from './pages/DigitalID';
 import Verification from './pages/Verification';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import ArticleStatus from './pages/ArticleStatus';
 import InvoiceHistory from './pages/InvoiceHistory';
 import TermsConditions from './pages/TermsConditions';
@@ -44,6 +46,8 @@ export default function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/membership-plans" element={<MembershipPlans />} />
           <Route path="/digital-id" element={<DigitalID />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/verify/:membershipId" element={<Verification />} />
           <Route path="/my-articles" element={<ArticleStatus />} />
           <Route path="/invoices" element={<InvoiceHistory />} />

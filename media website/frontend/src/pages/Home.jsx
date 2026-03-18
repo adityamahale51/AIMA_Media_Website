@@ -5,7 +5,7 @@
 // import NewsCard from '../components/NewsCard';
 // import Sidebar from '../components/Sidebar';
 // import { api } from '../api/api';
-
+//
 // function TrendingSection({ articles }) {
 //   if (!articles || articles.length === 0) return null;
 //   return (
@@ -27,7 +27,7 @@
 //     </div>
 //   );
 // }
-
+//
 // function CategoryBlocks() {
 //   const categories = [
 //     { name: 'Politics', icon: 'fas fa-landmark', color: '#1a237e' },
@@ -37,7 +37,7 @@
 //     { name: 'Media', icon: 'fas fa-tv', color: '#7b1fa2' },
 //     { name: 'Sports', icon: 'fas fa-futbol', color: '#2e7d32' },
 //   ];
-
+//
 //   return (
 //     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '16px 15px' }}>
 //       <h3 style={{ fontSize: '18px', color: 'var(--primary)', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -54,12 +54,12 @@
 //     </div>
 //   );
 // }
-
+//
 // function JoinCTA() {
 //   return (
 //     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '16px 15px' }}>
 //       <div style={{ background: 'linear-gradient(135deg, var(--primary), var(--primary-light))', borderRadius: 'var(--radius)', padding: '30px', textAlign: 'center', color: 'white', boxShadow: 'var(--shadow)' }}>
-//         <h3 style={{ fontSize: '22px', fontWeight: 700, marginBottom: '8px' }}>Join IDMA - India's Digital Media Network</h3>
+//         <h3 style={{ fontSize: '22px', fontWeight: 700, marginBottom: '8px' }}>Join IDMF - India's Digital Media Network</h3>
 //         <p style={{ fontSize: '14px', opacity: 0.9, marginBottom: '16px' }}>Get your verified Digital ID, publish articles, and connect with media professionals across India.</p>
 //         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
 //           <Link to="/membership-plans" style={{ padding: '12px 28px', background: 'var(--accent)', color: 'white', borderRadius: '25px', fontWeight: 600, fontSize: '14px' }}><i className="fas fa-rocket"></i> View Plans</Link>
@@ -69,19 +69,19 @@
 //     </div>
 //   );
 // }
-
+//
 // export default function Home() {
 //   const [news, setNews] = useState([]);
 //   const [trending, setTrending] = useState([]);
 //   const [loading, setLoading] = useState(true);
-
+//
 //   useEffect(() => {
 //     Promise.all([
 //       api.getNews().then(res => setNews(res.data || [])).catch(() => {}),
 //       api.getNewsTrending().then(res => setTrending(res.data || [])).catch(() => {}),
 //     ]).finally(() => setLoading(false));
 //   }, []);
-
+//
 //   return (
 //     <Layout showSubNav showStateTabs>
 //       <Carousel />
@@ -601,7 +601,7 @@ function JoinCTA() {
         </div>
 
         <h2 className="cta-title">
-          Join <em>AIMA</em> — India's Media Network
+          Join <em>IDMF</em> — India's Media Network
         </h2>
         <p className="cta-desc">
           Get your verified Digital ID, publish articles, and connect with media professionals across India.

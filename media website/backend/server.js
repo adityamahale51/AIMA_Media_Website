@@ -1,10 +1,16 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Database Connection
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('  ➜  Database: Connected to MongoDB'))
+  .catch(err => console.error('  ➜  Database: Connection error:', err));
 
 // Middleware
 app.use(cors({
@@ -28,7 +34,7 @@ app.use('/api/admin', require('./routes/admin'));
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ success: true, message: 'AIMA Media API is running', timestamp: new Date().toISOString() });
+  res.json({ success: true, message: 'IDMF Media API is running', timestamp: new Date().toISOString() });
 });
 
 // Create uploads directory if it doesn't exist
@@ -39,7 +45,7 @@ if (!fs.existsSync(uploadsDir)) {
 }
 
 app.listen(PORT, () => {
-  console.log(`\n  AIMA Media Backend Server`);
+  console.log(`\n  IDMF Media Backend Server`);
   console.log(`  ➜  API:     http://localhost:${PORT}/api`);
   console.log(`  ➜  Health:  http://localhost:${PORT}/api/health\n`);
 });

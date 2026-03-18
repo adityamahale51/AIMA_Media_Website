@@ -1,11 +1,11 @@
 const express = require('express');
 const JsonDB = require('../utils/db');
+const User = require('../models/User');
 const { authRequired } = require('../middleware/auth');
 
 const router = express.Router();
 const plansDB = new JsonDB('plans.json');
 const transactionsDB = new JsonDB('transactions.json');
-const usersDB = new JsonDB('users.json');
 
 // GET /api/plans — Get all membership plans (public)
 router.get('/', (req, res) => {
@@ -19,21 +19,21 @@ router.get('/', (req, res) => {
 });
 
 // POST /api/plans/subscribe — Subscribe to a plan (create transaction)
-router.post('/subscribe', authRequired, (req, res) => {
+router.post('/subscribe', authRequired, async (req, res) => {
   try {
     const { plan_id } = req.body;
-    const user = usersDB.findById(req.user.id);
+    const user = await User.findById(req.user.id);
     if (!user) return res.status(404).json({ success: false, message: 'User not found' });
 
     const plan = plansDB.findById(plan_id);
     if (!plan) return res.status(404).json({ success: false, message: 'Plan not found' });
 
     // Generate invoice number
-    const invoiceNumber = 'IDMA-INV-' + Date.now().toString().slice(-8);
+    const invoiceNumber = 'IDMF-INV-' + Date.now().toString().slice(-8);
 
     // Create transaction (payment pending - will be updated after Razorpay callback)
     const transaction = transactionsDB.create({
-      user_id: user.id,
+      user_id: user._id.toString(),
       plan_id: plan.id,
       plan_name: plan.name,
       amount: plan.price,
@@ -45,7 +45,7 @@ router.post('/subscribe', authRequired, (req, res) => {
     });
 
     // Update user with selected plan
-    usersDB.update(user.id, {
+    await User.findByIdAndUpdate(user._id, {
       selectedPlan: plan.id,
       selectedPlanName: plan.name,
       membershipStatus: 'pending',
@@ -60,7 +60,7 @@ router.post('/subscribe', authRequired, (req, res) => {
         razorpay_key: process.env.RAZORPAY_KEY_ID || 'rzp_test_placeholder',
         amount: plan.price * 100, // Razorpay expects paise
         currency: 'INR',
-        name: 'IDMA Membership',
+        name: 'IDMF Membership',
         description: `${plan.name} - ${plan.duration}`,
         prefill: { name: `${user.firstName} ${user.lastName}`, email: user.email, contact: user.mobile },
       },
@@ -72,10 +72,10 @@ router.post('/subscribe', authRequired, (req, res) => {
 });
 
 // POST /api/plans/payment-success — Confirm payment (Razorpay callback)
-router.post('/payment-success', authRequired, (req, res) => {
+router.post('/payment-success', authRequired, async (req, res) => {
   try {
     const { transaction_id, payment_gateway_id } = req.body;
-    const user = usersDB.findById(req.user.id);
+    const user = await User.findById(req.user.id);
     if (!user) return res.status(404).json({ success: false, message: 'User not found' });
 
     // Update transaction
@@ -90,7 +90,7 @@ router.post('/payment-success', authRequired, (req, res) => {
 
     // Update user membership status to pending (awaiting admin approval)
     const now = new Date();
-    usersDB.update(user.id, {
+    await User.findByIdAndUpdate(user._id, {
       membershipStatus: 'pending',
       paymentCompleted: true,
       lastPaymentDate: now.toISOString(),

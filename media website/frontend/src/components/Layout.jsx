@@ -225,7 +225,7 @@
 //           <div className="space-y-4">
 //             <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
 //               <div className="w-1 h-6 bg-gradient-to-b from-teal-500 to-blue-500 rounded-full"></div>
-//               About AIMA Media
+//               About IDMF Media
 //             </h3>
 //             <p className="text-slate-600 text-sm leading-relaxed">
 //               All India Media Association (AIMA) is a platform for media professionals across India. 
@@ -993,7 +993,7 @@ function TopBar() {
         <div className="flex items-center gap-2.5" style={{ fontSize: '11px' }}>
           <span className="pulse-live inline-block w-1.5 h-1.5 rounded-full" style={{ background: '#c8972a' }} />
           <span style={{ color: 'rgba(255,255,255,.35)', letterSpacing: '.6px', textTransform: 'uppercase', fontWeight: 600 }}>
-            AIMA MEDIA
+            IDMF MEDIA
           </span>
           <span style={{ color: 'rgba(200,151,42,.4)' }}>·</span>
           <span style={{ color: 'rgba(255,255,255,.25)', letterSpacing: '.3px' }}>
@@ -1068,7 +1068,7 @@ function Header() {
                   className="font-cormorant"
                   style={{ fontSize: 'clamp(24px,3vw,32px)', fontWeight: 700, color: '#0f1f33', lineHeight: 1, letterSpacing: '-0.5px' }}
                 >
-                  AIMA
+                  IDMF
                 </span>
                 <span
                   className="font-cormorant shimmer-gold"
@@ -1077,12 +1077,12 @@ function Header() {
                   MEDIA
                 </span>
               </div>
-              <p
-                className="font-dm"
-                style={{ fontSize: 10, fontWeight: 600, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6b7a8d', marginTop: 3 }}
-              >
-                All India Media Association
-              </p>
+                <span
+                  className="font-dm"
+                  style={{ fontSize: 10, fontWeight: 600, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6b7a8d', marginTop: 3 }}
+                >
+                  Independent Digital Media Foundation
+                </span>
             </div>
           </Link>
 
@@ -1095,9 +1095,9 @@ function Header() {
               <span style={{ color: '#1e3a5f', display: 'flex', width: 15, height: 15 }}><Icon.Phone /></span>
               +91 1234567890
             </a>
-            <a href="mailto:info@aimamedia.org" className="contact-pill" style={{ textDecoration: 'none' }}>
+            <a href="mailto:info@idmfmedia.org" className="contact-pill" style={{ textDecoration: 'none' }}>
               <span style={{ color: '#1e3a5f', display: 'flex', width: 15, height: 15 }}><Icon.Mail /></span>
-              info@aimamedia.org
+              info@idmfmedia.org
             </a>
           </div>
         </div>
@@ -1372,14 +1372,14 @@ function Footer() {
           <div>
             <div className="flex items-baseline gap-3 mb-2">
               <span className="font-cormorant" style={{ fontSize: 36, fontWeight: 700, color: '#fff', lineHeight: 1 }}>
-                AIMA
+                IDMF
               </span>
               <span className="font-cormorant shimmer-gold" style={{ fontSize: 36, fontWeight: 700, fontStyle: 'italic', lineHeight: 1 }}>
                 MEDIA
               </span>
             </div>
             <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'rgba(200,151,42,.6)' }}>
-              All India Media Association
+              Independent Digital Media Foundation
             </p>
             <p style={{ fontSize: 13, color: 'rgba(255,255,255,.3)', marginTop: 10, maxWidth: 360, lineHeight: 1.7 }}>
               India's Digital-First Verified Media Professionals Network — connecting journalists, reporters, and media
@@ -1500,7 +1500,7 @@ function Footer() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {[
                 { icon: <Icon.Phone />, text: '+91 1234567890' },
-                { icon: <Icon.Mail />,  text: 'info@aimamedia.org' },
+                { icon: <Icon.Mail />,  text: 'info@idmfmedia.org' },
               ].map((c, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <div style={{
@@ -1559,7 +1559,7 @@ function Footer() {
           }}
         >
           <p style={{ fontSize: 12, color: 'rgba(255,255,255,.25)', fontFamily: 'DM Sans,sans-serif' }}>
-            Copyright © <span style={{ color: 'rgba(200,151,42,.6)' }}>AIMAMEDIA FOUNDATION</span> 2026. All rights reserved.
+            Copyright © <span style={{ color: 'rgba(200,151,42,.6)' }}>IDMFMEDIA FOUNDATION</span> 2026. All rights reserved.
           </p>
           <div style={{ display: 'flex', gap: 20 }}>
             {[

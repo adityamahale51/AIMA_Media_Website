@@ -1,5 +1,5 @@
 {
-  "name": "aima-media-backend",
+  "name": "idmf-media-backend",
   "version": "1.0.0",
   "description": "AIMA Media Backend API Server",
   "main": "server.js",
@@ -10,10 +10,13 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "jsonwebtoken": "^9.0.2",
+    "mongoose": "^9.3.1",
     "multer": "^1.4.5-lts.1",
+    "nodemailer": "^8.0.3",
     "uuid": "^10.0.0"
   }
 }

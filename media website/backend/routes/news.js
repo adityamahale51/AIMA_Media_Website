@@ -3,11 +3,11 @@ const multer = require('multer');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const JsonDB = require('../utils/db');
+const User = require('../models/User');
 const { authRequired, authOptional } = require('../middleware/auth');
 
 const router = express.Router();
 const newsDB = new JsonDB('news.json');
-const usersDB = new JsonDB('users.json');
 
 // Multer config for image/audio uploads
 const storage = multer.diskStorage({
@@ -117,9 +117,9 @@ router.post('/', authRequired, upload.fields([
   { name: 'image2', maxCount: 1 },
   { name: 'image3', maxCount: 1 },
   { name: 'audio', maxCount: 1 },
-]), (req, res) => {
+]), async (req, res) => {
   try {
-    const user = usersDB.findById(req.user.id);
+    const user = await User.findById(req.user.id);
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
@@ -170,7 +170,7 @@ router.post('/', authRequired, upload.fields([
     });
 
     // Update user post count
-    usersDB.update(user.id, { postsCount: (user.postsCount || 0) + 1 });
+    await User.findByIdAndUpdate(user._id, { $inc: { postsCount: 1 } });
 
     res.status(201).json({ success: true, data: newPost });
   } catch (err) {

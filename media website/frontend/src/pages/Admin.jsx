@@ -237,7 +237,7 @@ export default function Admin() {
           {tabs.map(t => (
             <button key={t.id} onClick={() => setActiveTab(t.id)} style={{ padding: '10px 20px', borderRadius: 'var(--radius)', border: 'none', background: activeTab === t.id ? 'var(--primary)' : 'white', color: activeTab === t.id ? 'white' : 'var(--text-medium)', cursor: 'pointer', fontSize: '14px', fontWeight: 600, boxShadow: 'var(--shadow)' }}><i className={t.icon}></i> {t.label}</button>
           ))}
-          <button onClick={() => api.exportMembers().then(data => { const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'idma-members-export.json'; a.click(); }).catch(err => alert(err.message))} style={{ marginLeft: 'auto', padding: '10px 20px', borderRadius: 'var(--radius)', border: 'none', background: '#2e7d32', color: 'white', cursor: 'pointer', fontSize: '14px', fontWeight: 600, boxShadow: 'var(--shadow)' }}><i className="fas fa-download"></i> Export Members</button>
+          <button onClick={() => api.exportMembers().then(data => { const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'idmf-members-export.json'; a.click(); }).catch(err => alert(err.message))} style={{ marginLeft: 'auto', padding: '10px 20px', borderRadius: 'var(--radius)', border: 'none', background: '#2e7d32', color: 'white', cursor: 'pointer', fontSize: '14px', fontWeight: 600, boxShadow: 'var(--shadow)' }}><i className="fas fa-download"></i> Export Members</button>
         </div>
 
         {activeTab === 'overview' && stats && (

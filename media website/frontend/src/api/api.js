@@ -1,7 +1,7 @@
 const API_URL = '/api';
 
 async function request(endpoint, options = {}) {
-  const token = localStorage.getItem('aimaToken');
+  const token = localStorage.getItem('idmfToken');
   const headers = { ...options.headers };
 
   // Don't set Content-Type for FormData (browser sets it with boundary)
@@ -40,6 +40,12 @@ export const api = {
 
   updateProfile: (data) =>
     request('/auth/profile', { method: 'PUT', body: JSON.stringify(data) }),
+
+  forgotPassword: (email) =>
+    request('/auth/forgot-password', { method: 'POST', body: JSON.stringify({ email }) }),
+
+  resetPassword: (token, password) =>
+    request(`/auth/reset-password/${token}`, { method: 'PUT', body: JSON.stringify({ password }) }),
 
   getDigitalId: () =>
     request('/auth/digital-id'),
