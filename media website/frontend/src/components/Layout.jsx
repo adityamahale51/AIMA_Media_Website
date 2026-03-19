@@ -994,7 +994,7 @@ function TopBar() {
         <div className="flex items-center gap-2.5" style={{ fontSize: '11px' }}>
           <span className="pulse-live inline-block w-1.5 h-1.5 rounded-full" style={{ background: '#c8972a' }} />
           <span style={{ color: 'rgba(255,255,255,.35)', letterSpacing: '.6px', textTransform: 'uppercase', fontWeight: 600 }}>
-            IDMF MEDIA
+            IDMA MEDIA
           </span>
           <span style={{ color: 'rgba(200,151,42,.4)' }}>·</span>
           <span style={{ color: 'rgba(255,255,255,.25)', letterSpacing: '.3px' }}>
@@ -1069,7 +1069,7 @@ function Header() {
                   className="font-cormorant"
                   style={{ fontSize: 'clamp(24px,3vw,32px)', fontWeight: 700, color: '#0f1f33', lineHeight: 1, letterSpacing: '-0.5px' }}
                 >
-                  IDMF
+                  IDMA
                 </span>
                 <span
                   className="font-cormorant shimmer-gold"
@@ -1082,7 +1082,7 @@ function Header() {
                   className="font-dm"
                   style={{ fontSize: 10, fontWeight: 600, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#6b7a8d', marginTop: 3 }}
                 >
-                  Independent Digital Media Foundation
+                  Indian Digital Media Association
                 </span>
             </div>
           </Link>
@@ -1091,16 +1091,16 @@ function Header() {
           <div className="hidden lg:block flex-1" style={{ height: 1, background: 'linear-gradient(90deg,#dde2ea,transparent)' }} />
 
           {/* ── Contact pills ── */}
-          <div className="hidden md:flex items-center gap-3">
-            <a href="tel:+911234567890" className="contact-pill" style={{ textDecoration: 'none' }}>
-              <span style={{ color: '#1e3a5f', display: 'flex', width: 15, height: 15 }}><Icon.Phone /></span>
-              +91 1234567890
-            </a>
-            <a href="mailto:info@idmfmedia.org" className="contact-pill" style={{ textDecoration: 'none' }}>
-              <span style={{ color: '#1e3a5f', display: 'flex', width: 15, height: 15 }}><Icon.Mail /></span>
-              info@idmfmedia.org
-            </a>
-          </div>
+        <div className="hidden md:flex items-center gap-3">
+          <a href="tel:+911234567890" className="contact-pill" style={{ textDecoration: 'none' }}>
+            <span style={{ color: '#1e3a5f', display: 'flex', width: 15, height: 15 }}><Icon.Phone /></span>
+            +91 1234567890
+          </a>
+          <a href="mailto:info@idma.org" className="contact-pill" style={{ textDecoration: 'none' }}>
+            <span style={{ color: '#1e3a5f', display: 'flex', width: 15, height: 15 }}><Icon.Mail /></span>
+            info@idma.org
+          </a>
+        </div>
         </div>
       </div>
 
@@ -1378,14 +1378,14 @@ function Footer() {
           <div>
             <div className="flex items-baseline gap-3 mb-2">
               <span className="font-cormorant" style={{ fontSize: 36, fontWeight: 700, color: '#fff', lineHeight: 1 }}>
-                IDMF
+                IDMA
               </span>
               <span className="font-cormorant shimmer-gold" style={{ fontSize: 36, fontWeight: 700, fontStyle: 'italic', lineHeight: 1 }}>
                 MEDIA
               </span>
             </div>
             <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'rgba(200,151,42,.6)' }}>
-              Independent Digital Media Foundation
+              Indian Digital Media Association
             </p>
             <p style={{ fontSize: 13, color: 'rgba(255,255,255,.3)', marginTop: 10, maxWidth: 360, lineHeight: 1.7 }}>
               India's Digital-First Verified Media Professionals Network — connecting journalists, reporters, and media
@@ -1483,12 +1483,12 @@ function Footer() {
               <div style={{ width: 28, height: 2, background: '#c8972a', marginTop: 6, borderRadius: 2 }} />
             </h4>
             {[
-              { to: '/terms',      label: 'Terms & Conditions' },
-              { to: '/privacy',    label: 'Privacy Policy' },
-              { to: '/refund',     label: 'Refund Policy' },
-              { to: '/editorial',  label: 'Editorial Policy' },
-              { to: '/ethics',     label: 'Code of Ethics' },
-              { to: '/disclaimer', label: 'Disclaimer' },
+              { to: '/terms',           label: 'Terms & Conditions' },
+              { to: '/privacy',         label: 'Privacy Policy' },
+              { to: '/refund-policy',    label: 'Refund Policy' },
+              { to: '/editorial-policy', label: 'Editorial Policy' },
+              { to: '/code-of-ethics',   label: 'Code of Ethics' },
+              { to: '/disclaimer',      label: 'Disclaimer' },
             ].map((l, i) => (
               <Link key={i} to={l.to} className="footer-link">
                 <svg className="fl-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"/></svg>
@@ -1503,11 +1503,11 @@ function Footer() {
               Get In Touch
               <div style={{ width: 28, height: 2, background: '#c8972a', marginTop: 6, borderRadius: 2 }} />
             </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {[
-                { icon: <Icon.Phone />, text: '+91 1234567890' },
-                { icon: <Icon.Mail />,  text: 'info@idmfmedia.org' },
-              ].map((c, i) => (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {[
+            { icon: <Icon.Phone />, text: '+91 1234567890' },
+            { icon: <Icon.Mail />,  text: 'info@idma.org' },
+          ].map((c, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <div style={{
                     width: 34, height: 34, borderRadius: 8,
@@ -1565,7 +1565,7 @@ function Footer() {
           }}
         >
           <p style={{ fontSize: 12, color: 'rgba(255,255,255,.25)', fontFamily: 'DM Sans,sans-serif' }}>
-            Copyright © <span style={{ color: 'rgba(200,151,42,.6)' }}>IDMFMEDIA FOUNDATION</span> 2026. All rights reserved.
+            Copyright © <span style={{ color: 'rgba(200,151,42,.6)' }}>IDMA FOUNDATION</span> 2026. All rights reserved.
           </p>
           <div style={{ display: 'flex', gap: 20 }}>
             {[

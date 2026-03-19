@@ -12,11 +12,11 @@ const formatDate = (value) => {
 
 const buildMembershipId = async () => {
   for (let i = 0; i < 5; i += 1) {
-    const candidate = `IDMF${Date.now().toString().slice(-7)}${Math.floor(Math.random() * 900 + 100)}`;
+    const candidate = `IDMA${Date.now().toString().slice(-7)}${Math.floor(Math.random() * 900 + 100)}`;
     const exists = await User.findOne({ membershipId: candidate }).select('_id');
     if (!exists) return candidate;
   }
-  return `IDMF${Date.now()}${Math.floor(Math.random() * 1000)}`;
+  return `IDMA${Date.now()}${Math.floor(Math.random() * 1000)}`;
 };
 
 const serializeUser = (user) => {
@@ -69,6 +69,10 @@ exports.register = async (req, res, next) => {
       designation,
     } = req.body;
 
+    // Log for debugging
+    console.log('Register request body:', req.body);
+    console.log('Register request files:', req.files);
+
     if ((!firstName && !name) || !email || !mobile || !password) {
       return res.status(400).json({ success: false, message: 'Please provide all fields' });
     }
@@ -79,6 +83,9 @@ exports.register = async (req, res, next) => {
     const resolvedFirstName = firstName || (name ? name.split(' ')[0] : '');
     const resolvedLastName = lastName || (name ? name.split(' ').slice(1).join(' ') : '');
     const membershipId = await buildMembershipId();
+
+    const idProof = req.files && req.files['idProof'] ? `/uploads/proofs/${req.files['idProof'][0].filename}` : '';
+    const workProof = req.files && req.files['workProof'] ? `/uploads/proofs/${req.files['workProof'][0].filename}` : '';
 
     const user = await User.create({
       firstName: resolvedFirstName,
@@ -94,6 +101,8 @@ exports.register = async (req, res, next) => {
       designation: designation || '',
       membershipId,
       membershipStatus: 'pending',
+      idProof,
+      workProof,
     });
 
     const token = generateToken(user._id, process.env.JWT_SECRET, process.env.JWT_EXPIRE);
@@ -172,7 +181,7 @@ exports.getDigitalId = async (req, res, next) => {
       validity: formatDate(user.membership_expiry) || 'N/A',
       joinedDate: formatDate(user.joinedDate || user.createdAt),
       qrData: `${process.env.CLIENT_URL || 'http://localhost:5173'}/verify/${user.membershipId || user._id}`,
-      disclaimer: 'This is an official AIMA Media digital membership card and is subject to verification.',
+      disclaimer: 'This membership does not represent government accreditation. Verification reflects current status at the time of lookup.',
     };
 
     res.status(200).json({ success: true, data });

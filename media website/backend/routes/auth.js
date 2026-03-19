@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { register, login, getMe, getDigitalId, verifyMembership } = require('../controllers/authController');
 const { protect } = require('../middleware/auth');
+const { proofUpload } = require('../config/multer');
 
 
 /**
@@ -96,7 +97,10 @@ const { protect } = require('../middleware/auth');
  *               success: false
  *               message: "Please provide all fields"
  */
-router.post('/register', register);
+router.post('/register', proofUpload.fields([
+  { name: 'idProof', maxCount: 1 },
+  { name: 'workProof', maxCount: 1 }
+]), register);
 
 
 /**

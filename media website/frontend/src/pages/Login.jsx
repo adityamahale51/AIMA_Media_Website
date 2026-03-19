@@ -215,7 +215,7 @@ export default function Login() {
 
             <h1 className="font-playfair font-black text-white leading-none tracking-tight mb-2"
                 style={{ fontSize:'clamp(58px,6vw,88px)' }}>
-              IDMF{' '}
+              IDMA{' '}
               <em style={{ fontStyle:'italic', color:'#c8972a' }}>Media</em>
             </h1>
             <p className="font-medium tracking-[4px] uppercase mb-8"
@@ -277,7 +277,7 @@ export default function Login() {
             <div className="lg:hidden mb-10 text-center">
               <div className="font-playfair font-black tracking-tight leading-none"
                    style={{ fontSize:'40px', color:'#1e3a5f' }}>
-                IDMF <em style={{ fontStyle:'italic', color:'#c8972a' }}>Media</em>
+                IDMA <em style={{ fontStyle:'italic', color:'#c8972a' }}>Media</em>
               </div>
               <p className="tracking-[3px] uppercase text-slate-400 mt-2" style={{ fontSize:'11px' }}>
                 Independent Digital Media Foundation
@@ -367,7 +367,7 @@ export default function Login() {
               <IconInfo />
               <span>
                 <strong className="text-slate-500 font-semibold">Demo:</strong>&nbsp;
-                demo@idmfmedia.org &nbsp;/&nbsp; demo123
+                demo@idma.org &nbsp;/&nbsp; demo123
               </span>
             </div>
 
@@ -377,7 +377,7 @@ export default function Login() {
                 Don't have an account?{' '}
                 <Link to="/register" className="font-semibold hover:underline"
                       style={{ color:'#1e3a5f' }}>
-                  Join IDMF / Register
+                  Join IDMA / Register
                 </Link>
               </p>
               <Link to="/"

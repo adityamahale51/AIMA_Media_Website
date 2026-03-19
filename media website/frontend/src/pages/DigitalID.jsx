@@ -424,7 +424,7 @@ export default function DigitalID() {
     const printContent = document.getElementById('di-printable');
     if (!printContent) return;
     const w = window.open('', '_blank');
-    w.document.write(`<html><head><title>IDMF Digital ID — ${idData?.name}</title><style>
+    w.document.write(`<html><head><title>IDMA Digital ID — ${idData?.name}</title><style>
       @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900&family=DM+Sans:wght@400;600&display=swap');
       * { margin:0; padding:0; box-sizing:border-box; }
       body { font-family:'DM Sans',sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; background:#f5f5f5; }
@@ -451,8 +451,8 @@ export default function DigitalID() {
     </style></head><body>
       <div class="card">
         <div class="ch">
-          <h2>IDMF <em>Media</em></h2>
-          <p>Independent Digital Media Foundation</p>
+          <h2>IDMA <em>Media</em></h2>
+          <p>Indian Digital Media Association</p>
         </div>
         <div class="cb">
           <div class="av">${idData?.name?.charAt(0) || 'A'}</div>
@@ -471,7 +471,7 @@ export default function DigitalID() {
             <div class="qrl">Scan to verify membership</div>
           </div>
         </div>
-        <div class="cf"><p>${idData?.disclaimer || 'This is an official IDMF Media digital membership card.'}</p></div>
+        <div class="cf"><p>${idData?.disclaimer || 'This is an official IDMA Media digital membership card.'}</p></div>
       </div>
     </body></html>`);
     w.document.close();
@@ -549,8 +549,8 @@ export default function DigitalID() {
                     <span className="di-pulse" style={{ width:'5px', height:'5px', borderRadius:'50%', background:'#c8972a', display:'inline-block' }} />
                     Official ID
                   </div>
-                  <div className="di-card-org">IDMF <em>Media</em></div>
-                  <div className="di-card-org-sub">Independent Digital Media Foundation</div>
+                  <div className="di-card-org">IDMA <em>Media</em></div>
+                  <div className="di-card-org-sub">Indian Digital Media Association</div>
                 </div>
 
                 {/* Body */}
@@ -595,7 +595,7 @@ export default function DigitalID() {
 
                 {/* Footer */}
                 <div className="di-card-footer">
-                  <p>{idData.disclaimer || 'This is an official IDMF Media digital membership card.'}</p>
+                  <p>{idData.disclaimer || 'This is an official IDMA Media digital membership card.'}</p>
                 </div>
               </div>
 

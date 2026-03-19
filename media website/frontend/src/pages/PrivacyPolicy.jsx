@@ -396,7 +396,7 @@ export default function PrivacyPolicy() {
               </div>
               <div className="pp-sidebar-meta-row">
                 <span className="pp-sidebar-meta-lbl">Organization</span>
-                <span className="pp-sidebar-meta-val">AIMA Media</span>
+                <span className="pp-sidebar-meta-val">IDMA</span>
               </div>
             </div>
           </aside>
@@ -404,10 +404,9 @@ export default function PrivacyPolicy() {
           {/* Main content */}
           <div className="pp-main-card pp-anim-up-d1">
 
-            {/* Card header strip */}
             <div className="pp-card-top">
               <h2 className="pp-card-top-title">Privacy <em>Policy</em></h2>
-              <p className="pp-card-top-sub">Effective January 1, 2026 &nbsp;·&nbsp; All India Media Association</p>
+              <p className="pp-card-top-sub">Effective January 1, 2026 &nbsp;·&nbsp; Indian Digital Media Association</p>
             </div>
 
             <div className="pp-card-body">
@@ -429,7 +428,7 @@ export default function PrivacyPolicy() {
                   </div>
                   <div className="pp-highlight-box">
                     <i className="fas fa-credit-card" />
-                    <div><strong>Payment Information:</strong> Transaction details processed through Razorpay. Card details are handled by Razorpay and not stored by AIMA Media.</div>
+                    <div><strong>Payment Information:</strong> Transaction details processed through Razorpay. Card details are handled by Razorpay and not stored by IDMA.</div>
                   </div>
                   <div className="pp-highlight-box">
                     <i className="fas fa-chart-bar" />
@@ -553,7 +552,7 @@ export default function PrivacyPolicy() {
                   <div className="pp-highlight-box" style={{ marginTop:'10px' }}>
                     <i className="fas fa-envelope" />
                     <div>
-                      <strong>privacy@idmfmedia.org</strong>
+                      <strong>privacy@idma.org</strong>
                       <div style={{ fontSize:'12.5px', color:'#94a3b8', marginTop:'2px' }}>We aim to respond within 48 hours on business days.</div>
                     </div>
                   </div>
@@ -571,13 +570,12 @@ export default function PrivacyPolicy() {
                 </div>
               </div>
 
-              {/* Footer note */}
               <div className="pp-footer-note">
                 <i className="fas fa-info-circle" />
                 <span>
                   This Privacy Policy is effective as of <strong style={{ color:'#1e3a5f' }}>January 1, 2026</strong>.
-                  By using the AIMA Media platform, you agree to the collection and use of information as described in this policy.
-                  Contact us at <strong style={{ color:'#1e3a5f' }}>privacy@idmfmedia.org</strong> for any concerns.
+                  By using the IDMA platform, you agree to the collection and use of information as described in this policy.
+                  Contact us at <strong style={{ color:'#1e3a5f' }}>privacy@idma.org</strong> for any concerns.
                 </span>
               </div>
 

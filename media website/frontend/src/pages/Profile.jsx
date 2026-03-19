@@ -482,7 +482,7 @@ export default function Profile() {
                 )}
                 <span className="pf-member-badge">
                   <i className="fas fa-crown" style={{ fontSize:'9px' }} />
-                  IDMF Media Member
+                  IDMA Media Member
                 </span>
               </div>
               <div className="pf-edit-btn">

@@ -79,9 +79,25 @@ function MembersTab() {
                   </td>
                   <td style={{ padding: '10px 12px', textAlign: 'center' }}>
                     <div style={{ display: 'flex', gap: '6px', justifyContent: 'center' }}>
-                      {m.membershipStatus !== 'approved' && <button onClick={() => handleAction(m.id, 'approve')} disabled={actionLoading === m.id} style={{ padding: '4px 10px', border: 'none', background: '#2e7d32', color: 'white', borderRadius: '4px', cursor: 'pointer', fontSize: '11px' }}><i className="fas fa-check"></i></button>}
-                      {m.membershipStatus !== 'rejected' && <button onClick={() => handleAction(m.id, 'reject')} disabled={actionLoading === m.id} style={{ padding: '4px 10px', border: 'none', background: '#c62828', color: 'white', borderRadius: '4px', cursor: 'pointer', fontSize: '11px' }}><i className="fas fa-times"></i></button>}
-                      {m.membershipStatus === 'approved' && <button onClick={() => handleAction(m.id, 'suspend')} disabled={actionLoading === m.id} style={{ padding: '4px 10px', border: 'none', background: '#616161', color: 'white', borderRadius: '4px', cursor: 'pointer', fontSize: '11px' }}><i className="fas fa-ban"></i></button>}
+                      {(m.idProof || m.workProof) && (
+                        <button 
+                          onClick={() => {
+                            const msg = `ID Proof: ${m.idProof ? `${window.location.origin}${m.idProof}` : 'Not uploaded'}\nWork Proof: ${m.workProof ? `${window.location.origin}${m.workProof}` : 'Not uploaded'}`;
+                            if (window.confirm(`${msg}\n\nOpen ID Proof in new tab?`)) {
+                              if (m.idProof) window.open(m.idProof, '_blank');
+                            } else if (m.workProof && window.confirm('Open Work Proof in new tab?')) {
+                              window.open(m.workProof, '_blank');
+                            }
+                          }} 
+                          style={{ padding: '4px 10px', border: 'none', background: '#1e3a5f', color: 'white', borderRadius: '4px', cursor: 'pointer', fontSize: '11px' }}
+                          title="View Proofs"
+                        >
+                          <i className="fas fa-file-alt"></i>
+                        </button>
+                      )}
+                      {m.membershipStatus !== 'approved' && <button onClick={() => handleAction(m.id, 'approve')} disabled={actionLoading === m.id} style={{ padding: '4px 10px', border: 'none', background: '#2e7d32', color: 'white', borderRadius: '4px', cursor: 'pointer', fontSize: '11px' }} title="Approve"><i className="fas fa-check"></i></button>}
+                      {m.membershipStatus !== 'rejected' && <button onClick={() => handleAction(m.id, 'reject')} disabled={actionLoading === m.id} style={{ padding: '4px 10px', border: 'none', background: '#c62828', color: 'white', borderRadius: '4px', cursor: 'pointer', fontSize: '11px' }} title="Reject"><i className="fas fa-times"></i></button>}
+                      {m.membershipStatus === 'approved' && <button onClick={() => handleAction(m.id, 'suspend')} disabled={actionLoading === m.id} style={{ padding: '4px 10px', border: 'none', background: '#616161', color: 'white', borderRadius: '4px', cursor: 'pointer', fontSize: '11px' }} title="Suspend"><i className="fas fa-ban"></i></button>}
                     </div>
                   </td>
                 </tr>
@@ -125,12 +141,12 @@ function ArticlesTab() {
     setActionLoading(null);
   };
 
-  const statusColors = { draft: '#616161', submitted: '#ff8f00', published: '#2e7d32', rejected: '#c62828' };
+  const statusColors = { draft: '#616161', submitted: '#ff8f00', reviewed: '#0288d1', approved: '#7b1fa2', published: '#2e7d32', rejected: '#c62828' };
 
   return (
     <div>
       <div style={{ display: 'flex', gap: '10px', marginBottom: '16px', flexWrap: 'wrap' }}>
-        {['all', 'submitted', 'published', 'draft', 'rejected'].map(s => (
+        {['all', 'submitted', 'reviewed', 'approved', 'published', 'draft', 'rejected'].map(s => (
           <button key={s} onClick={() => setFilter(s)} style={{ padding: '8px 16px', borderRadius: '20px', border: 'none', background: filter === s ? 'var(--primary)' : 'var(--bg-light)', color: filter === s ? 'white' : 'var(--text-medium)', cursor: 'pointer', fontSize: '13px', fontWeight: 600, textTransform: 'capitalize' }}>{s}</button>
         ))}
         <div style={{ marginLeft: 'auto', display: 'flex', gap: '8px' }}>
@@ -155,8 +171,10 @@ function ArticlesTab() {
                 </div>
               </div>
               <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                {a.status === 'submitted' && <button onClick={() => handleAction(a.id, 'approve')} disabled={actionLoading === a.id} style={{ padding: '6px 12px', border: 'none', background: '#2e7d32', color: 'white', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}><i className="fas fa-check"></i> Approve</button>}
-                {a.status === 'submitted' && <button onClick={() => handleAction(a.id, 'reject')} disabled={actionLoading === a.id} style={{ padding: '6px 12px', border: 'none', background: '#c62828', color: 'white', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}><i className="fas fa-times"></i> Reject</button>}
+                {a.status === 'submitted' && <button onClick={() => handleAction(a.id, 'approve')} disabled={actionLoading === a.id} style={{ padding: '6px 12px', border: 'none', background: '#0288d1', color: 'white', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}><i className="fas fa-search"></i> Mark Reviewed</button>}
+                {a.status === 'reviewed' && <button onClick={() => handleAction(a.id, 'approve')} disabled={actionLoading === a.id} style={{ padding: '6px 12px', border: 'none', background: '#7b1fa2', color: 'white', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}><i className="fas fa-check-double"></i> Mark Approved</button>}
+                {a.status === 'approved' && <button onClick={() => handleAction(a.id, 'approve')} disabled={actionLoading === a.id} style={{ padding: '6px 12px', border: 'none', background: '#2e7d32', color: 'white', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}><i className="fas fa-upload"></i> Publish Now</button>}
+                {(a.status === 'submitted' || a.status === 'reviewed' || a.status === 'approved') && <button onClick={() => handleAction(a.id, 'reject')} disabled={actionLoading === a.id} style={{ padding: '6px 12px', border: 'none', background: '#c62828', color: 'white', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}><i className="fas fa-times"></i> Reject</button>}
                 <button onClick={() => handleAction(a.id, 'feature')} disabled={actionLoading === a.id} style={{ padding: '6px 12px', border: 'none', background: a.is_featured ? 'var(--accent)' : 'var(--bg-light)', color: a.is_featured ? 'white' : 'var(--text-medium)', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}><i className="fas fa-star"></i></button>
                 <button onClick={() => handleAction(a.id, 'trending')} disabled={actionLoading === a.id} style={{ padding: '6px 12px', border: 'none', background: a.is_trending ? '#7b1fa2' : 'var(--bg-light)', color: a.is_trending ? 'white' : 'var(--text-medium)', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}><i className="fas fa-fire"></i></button>
                 <button onClick={() => handleAction(a.id, 'delete')} disabled={actionLoading === a.id} style={{ padding: '6px 12px', border: 'none', background: '#ffebee', color: '#c62828', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}><i className="fas fa-trash"></i></button>
@@ -238,7 +256,7 @@ export default function Admin() {
           {tabs.map(t => (
             <button key={t.id} onClick={() => setActiveTab(t.id)} style={{ padding: '10px 20px', borderRadius: 'var(--radius)', border: 'none', background: activeTab === t.id ? 'var(--primary)' : 'white', color: activeTab === t.id ? 'white' : 'var(--text-medium)', cursor: 'pointer', fontSize: '14px', fontWeight: 600, boxShadow: 'var(--shadow)' }}><i className={t.icon}></i> {t.label}</button>
           ))}
-          <button onClick={() => api.exportMembers().then(data => { const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'idmf-members-export.json'; a.click(); }).catch(err => alert(err.message))} style={{ marginLeft: 'auto', padding: '10px 20px', borderRadius: 'var(--radius)', border: 'none', background: '#2e7d32', color: 'white', cursor: 'pointer', fontSize: '14px', fontWeight: 600, boxShadow: 'var(--shadow)' }}><i className="fas fa-download"></i> Export Members</button>
+          <button onClick={() => api.exportMembers().then(data => { const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'idma-members-export.json'; a.click(); }).catch(err => alert(err.message))} style={{ marginLeft: 'auto', padding: '10px 20px', borderRadius: 'var(--radius)', border: 'none', background: '#2e7d32', color: 'white', cursor: 'pointer', fontSize: '14px', fontWeight: 600, boxShadow: 'var(--shadow)' }}><i className="fas fa-download"></i> Export Members</button>
         </div>
 
         {activeTab === 'overview' && stats && (

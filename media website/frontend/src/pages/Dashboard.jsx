@@ -492,7 +492,7 @@ export default function Dashboard() {
             <h2 className="db-welcome-name">
               Welcome, <em>{user.firstName} {user.lastName}</em>!
             </h2>
-            <p className="db-welcome-sub">IDMF Media Dashboard — Manage your news, members, and profile</p>
+            <p className="db-welcome-sub">IDMA Media Dashboard — Manage your news, members, and profile</p>
             {user.selectedPlanName && (
               <div className="db-plan-pill">
                 <i className="fas fa-crown" />

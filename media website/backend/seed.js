@@ -140,14 +140,14 @@ async function seed() {
       firstName: 'Demo',
       lastName: 'User',
       name: 'Demo User',
-      email: 'demo@idmfmedia.org',
+      email: 'demo@idma.org',
       mobile: '9999999999',
       state: 'Uttar Pradesh',
       city: 'Meerut',
-      organization: 'AIMA Media',
+      organization: 'IDMA Media',
       designation: 'Journalist',
       password: 'demo123', // Will be hashed by pre-save hook
-      membershipId: 'AIMA100001',
+      membershipId: 'IDMA100001',
       role: 'member',
       membershipStatus: 'approved',
       verification_status: 'verified',
@@ -208,7 +208,7 @@ async function seed() {
 
     // ===== GALLERY =====
     const gallery = [
-      { title: 'AIMA Hindi Patrkarita Divas', image: 'https://aimamedia.org/fotos/aimaprogram/10.jpg', category: 'Events' },
+      { title: 'IDMA Hindi Patrkarita Divas', image: 'https://aimamedia.org/fotos/aimaprogram/10.jpg', category: 'Events' },
       { title: 'ADG DK Thakur addressing', image: 'https://aimamedia.org/fotos/aimaprogram/5.jpg', category: 'Events' },
       { title: 'MLA Amit Agarwal felicitation', image: 'https://aimamedia.org/fotos/aimaprogram/9.jpg', category: 'Awards' },
       { title: 'Ravi Prakash Tiwari honoured', image: 'https://aimamedia.org/fotos/aimaprogram/6.jpg', category: 'Awards' },
@@ -219,7 +219,7 @@ async function seed() {
       { title: 'Arun Jindal felicitation', image: 'https://aimamedia.org/fotos/aimaprogram/13.jpg', category: 'Awards' },
       { title: 'Surendra Sharma honoured', image: 'https://aimamedia.org/fotos/aimaprogram/2.jpg', category: 'Awards' },
       { title: 'Gyan Dixit felicitation', image: 'https://aimamedia.org/fotos/aimaprogram/4.jpg', category: 'Awards' },
-      { title: 'AIMA Group Photo', image: 'https://aimamedia.org/fotos/aimaprogram/14.jpg', category: 'Events' },
+      { title: 'IDMA Group Photo', image: 'https://aimamedia.org/fotos/aimaprogram/14.jpg', category: 'Events' },
     ];
     await Gallery.insertMany(gallery);
 

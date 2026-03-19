@@ -51,7 +51,7 @@ const NewsArticleSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['draft', 'submitted', 'published', 'rejected'],
+    enum: ['draft', 'submitted', 'reviewed', 'approved', 'published', 'rejected'],
     default: 'submitted',
   },
   is_featured: {

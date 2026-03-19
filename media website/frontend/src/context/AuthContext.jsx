@@ -33,12 +33,21 @@ export function AuthProvider({ children }) {
 
   const register = async (formData) => {
     try {
-      const payload = {
+      // If formData is already a FormData instance (with files), pass it directly
+      // Otherwise, create the payload object
+      const payload = formData instanceof FormData ? formData : {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
         name: `${formData.firstName || ''} ${formData.lastName || ''}`.trim(),
         email: formData.email,
         mobile: formData.mobile,
         password: formData.password,
+        state: formData.state,
+        city: formData.city,
+        organization: formData.organization,
+        designation: formData.designation,
       };
+      
       const data = await api.register(payload);
       localStorage.setItem('idmfToken', data.token);
       setUser(data.user);

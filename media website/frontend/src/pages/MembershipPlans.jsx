@@ -371,11 +371,16 @@ export default function MembershipPlans() {
   }, []);
 
   const handleSubscribe = async (planId) => {
-    if (!user) { navigate('/login'); return; }
+    if (!user) { 
+      // Store selected plan in session storage to subscribe after login/register
+      sessionStorage.setItem('pendingPlanId', planId);
+      navigate('/register'); 
+      return; 
+    }
     setSubscribing(planId);
     try {
       const res = await api.subscribePlan(planId);
-      const { transaction, razorpay_key, amount, currency, name, description, prefill } = res.data;
+      const { transaction, razorpay_key, order_id, amount, currency, name, description, prefill } = res.data;
 
       const options = {
         key: razorpay_key,
@@ -383,8 +388,8 @@ export default function MembershipPlans() {
         currency: currency,
         name: name,
         description: description,
-        image: 'https://ui-avatars.com/api/?name=IDMF&background=1e3a5f&color=c8972a',
-        order_id: null, // If using Razorpay Orders API, set it here
+        image: 'https://ui-avatars.com/api/?name=IDMA&background=1e3a5f&color=c8972a',
+        order_id: order_id,
         handler: async function (response) {
           try {
             await api.confirmPayment(transaction.id, response.razorpay_payment_id);

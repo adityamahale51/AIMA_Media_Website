@@ -44,13 +44,19 @@ export const api = {
     request('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) }),
 
   register: (formData) =>
-    request('/auth/register', { method: 'POST', body: JSON.stringify(formData) }),
+    request('/auth/register', { 
+      method: 'POST', 
+      body: formData instanceof FormData ? formData : JSON.stringify(formData) 
+    }),
 
   getMe: () =>
     request('/users/me'),
 
   updateProfile: (body) =>
-    request('/users/me', { method: 'PUT', body }),
+    request('/users/me', { 
+      method: 'PUT', 
+      body: body instanceof FormData ? body : JSON.stringify(body) 
+    }),
 
   forgotPassword: (email) =>
     request('/auth/forgot-password', { method: 'POST', body: JSON.stringify({ email }) }),
@@ -88,7 +94,10 @@ export const api = {
     request(`/news/category/${encodeURIComponent(category)}`),
 
   createNews: (formData) =>
-    request('/news', { method: 'POST', body: formData }), // FormData for file upload
+    request('/news', { 
+      method: 'POST', 
+      body: formData instanceof FormData ? formData : JSON.stringify(formData) 
+    }),
 
   approveNews: (id) =>
     request(`/news/${id}/approve`, { method: 'PATCH' }),
@@ -116,10 +125,10 @@ export const api = {
 
   // Plans
   getPlans: () =>
-    request('/plans/public'),
+    request('/plans'),
 
   getPlan: (id) =>
-    request(`/plans/public/${id}`),
+    request(`/plans/${id}`),
 
   subscribePlan: (plan_id) =>
     request('/plans/subscribe', { method: 'POST', body: JSON.stringify({ plan_id }) }),

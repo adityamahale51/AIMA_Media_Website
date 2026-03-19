@@ -112,6 +112,14 @@ const UserSchema = new mongoose.Schema({
   membership_expiry: {
     type: Date,
   },
+  idProof: {
+    type: String,
+    default: '',
+  },
+  workProof: {
+    type: String,
+    default: '',
+  },
   postsCount: {
     type: Number,
     default: 0,

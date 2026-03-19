@@ -175,12 +175,13 @@ const IXIcon     = () => <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" f
 const IUserPlus  = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>;
 const IArrow     = () => <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>;
 const IShield    = () => <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>;
+const INews      = () => <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg>;
 
 const STATES = ['Uttar Pradesh','Madhya Pradesh','Rajasthan','Bihar','Punjab','Haryana','Delhi','Maharashtra','Karnataka','Gujarat','Chandigarh','Andhra Pradesh','Tamil Nadu','West Bengal','Orissa','Telangana','Other'];
 const DESIGNATIONS = ['Editor','Reporter','Journalist','Photographer','Cameraman','Anchor','Bureau Chief','Freelancer','Other'];
 
 const perks = [
-  'Official Press ID Card issued by IDMF',
+  'Official Press ID Card issued by IDMA',
   'Access to exclusive media events & summits',
   'Legal support & press freedom protection',
   'Pan-India network of 50,000+ journalists',
@@ -209,6 +210,8 @@ export default function Register() {
     state:'', city:'', organization:'', designation:'',
     password:'', confirmPassword:'',
   });
+  const [idProof, setIdProof] = useState(null);
+  const [workProof, setWorkProof] = useState(null);
   const [alert, setAlert]     = useState(null);
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
@@ -218,9 +221,22 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (form.password !== form.confirmPassword) {
+      return setAlert({ type: 'error', msg: 'Passwords do not match' });
+    }
+    if (!idProof || !workProof) {
+      return setAlert({ type: 'error', msg: 'Please upload both ID Proof and Work Proof' });
+    }
+
     setLoading(true);
     setAlert(null);
-    const result = await register(form);
+
+    const formData = new FormData();
+    Object.keys(form).forEach(key => formData.append(key, form[key]));
+    formData.append('idProof', idProof);
+    formData.append('workProof', workProof);
+
+    const result = await register(formData);
     setLoading(false);
     if (result.success) {
       setAlert({ type:'success', msg:`Registration successful! Membership ID: ${result.membershipId}. Redirecting…` });
@@ -268,12 +284,12 @@ export default function Register() {
 
             <h1 className="font-playfair font-black text-white leading-none tracking-tight mb-2"
                 style={{ fontSize:'clamp(48px,4.5vw,72px)' }}>
-              IDMF{' '}
+              IDMA{' '}
               <em style={{ fontStyle:'italic', color:'#c8972a' }}>Media</em>
             </h1>
             <p className="font-medium tracking-[4px] uppercase mb-8"
                style={{ fontSize:'11px', color:'rgba(255,255,255,.35)' }}>
-              Independent Digital Media Foundation
+              Indian Digital Media Association
             </p>
 
             <div className="w-14 h-[2px] mb-8 rounded-full"
@@ -325,10 +341,10 @@ export default function Register() {
               <div className="lg:hidden mb-10 text-center">
                 <div className="font-playfair font-black tracking-tight leading-none"
                      style={{ fontSize:'40px', color:'#1e3a5f' }}>
-                  IDMF <em style={{ fontStyle:'italic', color:'#c8972a' }}>Media</em>
+                  IDMA <em style={{ fontStyle:'italic', color:'#c8972a' }}>Media</em>
                 </div>
                 <p className="tracking-[3px] uppercase text-slate-400 mt-2" style={{ fontSize:'11px' }}>
-                  Independent Digital Media Foundation
+                  Indian Digital Media Association
                 </p>
               </div>
 
@@ -346,7 +362,7 @@ export default function Register() {
                   Create Your Account
                 </h2>
                 <p className="text-slate-400 leading-relaxed" style={{ fontSize:'15px' }}>
-                  Fill in your details below to apply for IDMF Media membership.
+                  Fill in your details below to apply for IDMA Media membership.
                 </p>
               </div>
 
@@ -429,6 +445,23 @@ export default function Register() {
                   </select>
                 </div>
 
+                {/* ── Verification ── */}
+                <SectionLabel>Verification Documents</SectionLabel>
+
+                <div className="mb-5">
+                  <Label icon={<IShield />}>ID Proof (Aadhar/Voter ID/PAN)</Label>
+                  <input type="file" className="field" accept="image/*,.pdf"
+                    onChange={e => setIdProof(e.target.files[0])} required />
+                  <p className="text-[11px] text-slate-400 mt-1.5">Upload a clear photo or PDF of your government ID.</p>
+                </div>
+
+                <div className="mb-6">
+                  <Label icon={<INews />}>Work Proof (Press Card/Article Link)</Label>
+                  <input type="file" className="field" accept="image/*,.pdf"
+                    onChange={e => setWorkProof(e.target.files[0])} required />
+                  <p className="text-[11px] text-slate-400 mt-1.5">Upload your current press card or a recent published work.</p>
+                </div>
+
                 {/* ── Security ── */}
                 <SectionLabel>Account Security</SectionLabel>
 
@@ -460,7 +493,7 @@ export default function Register() {
                       <a href="#" onClick={e => e.preventDefault()}
                          className="font-semibold hover:underline" style={{ color:'#1e3a5f' }}>
                         Privacy Policy
-                      </a>{' '}of IDMF Media.
+                      </a>{' '}of IDMA Media.
                     </span>
                   </label>
                 </div>
@@ -469,7 +502,7 @@ export default function Register() {
                 <button type="submit" className="btn-primary" disabled={loading}>
                   {loading
                     ? <><div className="spinner" /> Registering…</>
-                    : <><IUserPlus /> Register / Join IDMF</>}
+                    : <><IUserPlus /> Register / Join IDMA</>}
                 </button>
 
                 {/* Privacy note */}

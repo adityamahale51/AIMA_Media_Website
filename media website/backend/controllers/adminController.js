@@ -23,6 +23,8 @@ const mapMember = (u) => ({
   selectedPlanName: u.selectedPlanName || '',
   membershipStatus: u.membershipStatus || 'pending',
   role: u.role,
+  idProof: u.idProof || '',
+  workProof: u.workProof || '',
 });
 
 const mapArticle = (a) => ({
@@ -180,8 +182,20 @@ exports.approveArticle = async (req, res, next) => {
   try {
     const row = await News.findById(req.params.id).populate('author', 'firstName lastName');
     if (!row) return res.status(404).json({ success: false, message: 'Article not found' });
-    row.status = 'published';
-    row.isApproved = true;
+    
+    // If it's submitted, move to reviewed
+    if (row.status === 'submitted') {
+      row.status = 'reviewed';
+    } else if (row.status === 'reviewed') {
+      row.status = 'approved';
+    } else if (row.status === 'approved') {
+      row.status = 'published';
+      row.isApproved = true;
+    } else {
+      row.status = 'published';
+      row.isApproved = true;
+    }
+    
     row.rejectionReason = '';
     await row.save();
     res.json({ success: true, data: mapArticle(row) });

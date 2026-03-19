@@ -295,18 +295,18 @@ const GlobalStyles = () => (
 );
 
 const sections = [
-  { num:1,  title:'Acceptance of Terms',       body:'By accessing or using the AIMA Media platform, you agree to be bound by these Terms and Conditions. If you do not agree, you may not access or use the platform.' },
-  { num:2,  title:'Nature of Membership',      body:'AIMA Media is a private digital membership network. Membership does not represent government accreditation, press card issuance, or any official media credentials from any government body. AIMA provides a verified contributor-based media community and digital identity system.' },
+  { num:1,  title:'Acceptance of Terms',       body:'By accessing or using the IDMA platform, you agree to be bound by these Terms and Conditions. If you do not agree, you may not access or use the platform.' },
+  { num:2,  title:'Nature of Membership',      body:'IDMA is a private digital membership network. Membership does not represent government accreditation, press card issuance, or any official media credentials from any government body. IDMA provides a verified contributor-based media community and digital identity system.' },
   { num:3,  title:'Eligibility',               body:'You must be at least 18 years of age (or a student enrolled in a recognized institution for Student membership) to register. You must provide accurate, truthful information during registration.' },
-  { num:4,  title:'Account Responsibilities',  body:'You are responsible for maintaining the confidentiality of your account credentials. You are responsible for all activities that occur under your account. AIMA Media may suspend or terminate accounts that violate these terms.' },
+  { num:4,  title:'Account Responsibilities',  body:'You are responsible for maintaining the confidentiality of your account credentials. You are responsible for all activities that occur under your account. IDMA may suspend or terminate accounts that violate these terms.' },
   { num:5,  title:'Membership Plans & Payment',body:'Membership plans are offered at published prices and are subject to change. All payments are processed through Razorpay or other authorized payment gateways. Membership is activated only after admin approval and successful payment verification.' },
-  { num:6,  title:'Content Publishing',        body:'Members may submit articles for review and publication. All content is subject to editorial review before publishing. AIMA Media reserves the right to reject, modify, or remove any content that violates our editorial policy.' },
+  { num:6,  title:'Content Publishing',        body:'Members may submit articles for review and publication. All content is subject to editorial review before publishing. IDMA reserves the right to reject, modify, or remove any content that violates our editorial policy.' },
   { num:7,  title:'Prohibited Conduct',        body:'Members must not: publish false, misleading, or defamatory content; impersonate any person or entity; use the platform for illegal activities; misuse the Digital ID for unauthorized purposes; or violate intellectual property rights.' },
-  { num:8,  title:'Intellectual Property',     body:'Content submitted by members remains the property of the author but grants AIMA Media a non-exclusive license to publish and distribute. The AIMA brand, logo, and platform design are proprietary to AIMA Media.' },
-  { num:9,  title:'Termination',               body:'AIMA Media reserves the right to suspend or terminate any membership at its sole discretion, with or without cause. Members may cancel their membership by contacting support.' },
-  { num:10, title:'Limitation of Liability',   body:'AIMA Media shall not be liable for any indirect, incidental, or consequential damages arising from the use of the platform. The platform is provided "as is" without warranties of any kind.' },
-  { num:11, title:'Jurisdiction',              body:'These terms shall be governed by the laws of India. Any disputes shall be subject to the exclusive jurisdiction of courts in Uttar Pradesh, India.' },
-  { num:12, title:'Changes to Terms',          body:'AIMA Media reserves the right to modify these terms at any time. Continued use of the platform constitutes acceptance of the modified terms.' },
+  { num:8,  title:'Intellectual Property',     body:'Content submitted by members remains the property of the author but grants IDMA a non-exclusive license to publish and distribute. The IDMA brand, logo, and platform design are proprietary to IDMA.' },
+  { num:9,  title:'Termination',               body:'IDMA reserves the right to suspend or terminate any membership at its sole discretion, with or without cause. Members may cancel their membership by contacting support.' },
+  { num:10, title:'Limitation of Liability',   body:'IDMA shall not be liable for any indirect, incidental, or consequential damages arising from the use of the platform. The platform is provided "as is" without warranties of any kind.' },
+  { num:11, title:'Jurisdiction',              body:'These terms shall be governed by the laws of India. Any disputes shall be subject to the exclusive jurisdiction of courts in Punjab, India.' },
+  { num:12, title:'Changes to Terms',          body:'IDMA reserves the right to modify these terms at any time. Continued use of the platform constitutes acceptance of the modified terms.' },
 ];
 
 export default function TermsConditions() {
@@ -373,7 +373,7 @@ export default function TermsConditions() {
               </div>
               <div className="tc-sidebar-meta-row">
                 <span className="tc-sidebar-meta-lbl">Organization</span>
-                <span className="tc-sidebar-meta-val">AIMA Media</span>
+                <span className="tc-sidebar-meta-val">IDMA</span>
               </div>
             </div>
           </aside>
@@ -381,10 +381,9 @@ export default function TermsConditions() {
           {/* Main content */}
           <div className="tc-main-card tc-anim-up-d1">
 
-            {/* Card header strip */}
             <div className="tc-card-top">
               <h2 className="tc-card-top-title">Terms & <em>Conditions</em></h2>
-              <p className="tc-card-top-sub">Effective January 1, 2026 &nbsp;·&nbsp; All India Media Association</p>
+              <p className="tc-card-top-sub">Effective January 1, 2026 &nbsp;·&nbsp; Indian Digital Media Association</p>
             </div>
 
             <div className="tc-card-body">
@@ -403,7 +402,7 @@ export default function TermsConditions() {
                 <i className="fas fa-info-circle" />
                 <span>
                   For questions about these Terms &amp; Conditions, please contact us at&nbsp;
-                  <strong style={{ color:'#1e3a5f' }}>info@idmfmedia.org</strong>.
+                  <strong style={{ color:'#1e3a5f' }}>info@idma.org</strong>.
                   These terms were last updated on <strong style={{ color:'#1e3a5f' }}>January 1, 2026</strong>.
                 </span>
               </div>

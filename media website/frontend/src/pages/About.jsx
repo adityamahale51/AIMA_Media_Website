@@ -6,9 +6,9 @@
 //       <div className="page-header"><div className="container"><h1><i className="fas fa-info-circle"></i> About Us</h1><div className="breadcrumb"><a href="/">Home</a> / About Us</div></div></div>
 //       <div className="about-content">
 //         <div className="about-card">
-//           <h2><i className="fas fa-building"></i> About IDMF Media Foundation</h2>
-//           <p>Independent Digital Media Foundation (IDMF) is a premier organization dedicated to supporting and empowering media professionals across India. Founded with the vision of creating a unified platform for journalists, editors, reporters, and other media personnel, IDMF has grown into one of the most respected media bodies in the country.</p>
-//           <p>IDMF Media Foundation works tirelessly to protect the rights of journalists, promote ethical journalism, and provide a platform for media professionals to connect, collaborate, and grow.</p>
+//           <h2><i className="fas fa-building"></i> About IDMA Media Foundation</h2>
+//           <p>Indian Digital Media Association (IDMA) is a premier organization dedicated to supporting and empowering media professionals across India. Founded with the vision of creating a unified platform for journalists, editors, reporters, and other media personnel, IDMA has grown into one of the most respected media bodies in the country.</p>
+//           <p>IDMA Media Foundation works tirelessly to protect the rights of journalists, promote ethical journalism, and provide a platform for media professionals to connect, collaborate, and grow.</p>
 //         </div>
 //         <div className="about-card"><h2><i className="fas fa-bullseye"></i> Our Mission</h2><p>To create a strong, unified community of media professionals in India that upholds the highest standards of journalism, protects press freedom, and serves the public interest through fair, accurate, and responsible reporting.</p></div>
 //         <div className="about-card"><h2><i className="fas fa-eye"></i> Our Vision</h2><p>To be India's leading media association that empowers every journalist and media professional to excel in their field, contribute to democratic values, and maintain the integrity of the fourth estate.</p></div>
@@ -32,7 +32,7 @@
 //           <h2><i className="fas fa-users"></i> Our Leadership</h2>
 //           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginTop: '10px' }}>
 //             {[
-//               { name: 'Mahesh Sharma', role: 'President, IDMF', initial: 'M', bg: 'var(--primary)' },
+//               { name: 'Mahesh Sharma', role: 'President, IDMA', initial: 'M', bg: 'var(--primary)' },
 //               { name: 'Ramkumar Sharma', role: 'Senior Patron', initial: 'R', bg: 'var(--secondary)' },
 //               { name: 'Charan Singh Swami', role: 'District President', initial: 'C', bg: 'var(--accent)' },
 //             ].map((l, i) => (
@@ -317,7 +317,7 @@ const ACTIVITIES = [
 ];
 
 const LEADERS = [
-  { name: 'Mahesh Sharma',       role: 'President, IDMF',    initial: 'M', colors: ['#1e3a5f','#2d5185'] },
+  { name: 'Mahesh Sharma',       role: 'President, IDMA',    initial: 'M', colors: ['#1e3a5f','#2d5185'] },
   { name: 'Ramkumar Sharma',     role: 'Senior Patron',      initial: 'R', colors: ['#c8972a','#e8c97a'] },
   { name: 'Charan Singh Swami',  role: 'District President', initial: 'C', colors: ['#0f1f33','#1e3a5f'] },
 ];
@@ -342,7 +342,7 @@ export default function About() {
             {/* Heading */}
             <h1 className="font-cormorant" style={{ fontSize:'clamp(38px,5vw,56px)', fontWeight:700, color:'#fff', lineHeight:1.05, margin:'0 0 14px' }}>
               About{' '}
-              <em className="shimmer-gold" style={{ fontStyle:'italic' }}>IDMF Media</em>
+              <em className="shimmer-gold" style={{ fontStyle:'italic' }}>IDMA Media</em>
             </h1>
             <p className="font-dm" style={{ fontSize:14.5, color:'rgba(255,255,255,.45)', maxWidth:480, lineHeight:1.75, margin:'0 0 20px' }}>
               A unified platform empowering India's journalists, editors, and media professionals since founding.
@@ -387,12 +387,12 @@ export default function About() {
           {/* About card */}
           <div className="about-card anim-2">
             <div className="section-eyebrow"><span className="dot" /> Foundation</div>
-            <h2 className="section-title">About IDMF Media Foundation</h2>
+            <h2 className="section-title">About IDMA Media Foundation</h2>
             <p className="section-body">
-              Independent Digital Media Foundation (IDMF) is a premier organization dedicated to supporting and empowering media professionals across India. Founded with the vision of creating a unified platform for journalists, editors, reporters, and other media personnel, IDMF has grown into one of the most respected media bodies in the country.
+              Indian Digital Media Association (IDMA) is a premier organization dedicated to supporting and empowering media professionals across India. Founded with the vision of creating a unified platform for journalists, editors, reporters, and other media personnel, IDMA has grown into one of the most respected media bodies in the country.
             </p>
             <p className="section-body">
-              IDMF Media Foundation works tirelessly to protect the rights of journalists, promote ethical journalism, and provide a platform for media professionals to connect, collaborate, and grow.
+              IDMA Media Foundation works tirelessly to protect the rights of journalists, promote ethical journalism, and provide a platform for media professionals to connect, collaborate, and grow.
             </p>
           </div>
 

@@ -1,6 +1,12 @@
 const User = require('../models/User');
 const Transaction = require('../models/Transaction');
 const MembershipPlan = require('../models/MembershipPlan');
+const Razorpay = require('razorpay');
+
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
 
 const buildInvoiceNumber = () => `INV-${Date.now()}-${Math.floor(Math.random() * 900 + 100)}`;
 
@@ -29,14 +35,25 @@ exports.subscribe = async (req, res, next) => {
     const plan = await MembershipPlan.findOne({ id: plan_id });
     if (!plan) return res.status(404).json({ success: false, message: 'Plan not found' });
 
+    // Create Razorpay order
+    const amountInPaise = plan.price * 100;
+    const order = await razorpay.orders.create({
+      amount: amountInPaise,
+      currency: 'INR',
+      receipt: buildInvoiceNumber(),
+    });
+
     const tx = await Transaction.create({
       user: req.user.id,
       plan: plan.id,
       plan_name: plan.name,
       amount: plan.price,
       status: 'pending',
-      invoice_number: buildInvoiceNumber(),
+      invoice_number: order.receipt,
+      payment_gateway_id: order.id, // Store Razorpay Order ID
     });
+
+    const user = await User.findById(req.user.id);
 
     res.status(201).json({
       success: true,
@@ -46,6 +63,17 @@ exports.subscribe = async (req, res, next) => {
           id: tx._id,
           amount: tx.amount,
           status: tx.status,
+        },
+        razorpay_key: process.env.RAZORPAY_KEY_ID,
+        order_id: order.id,
+        amount: amountInPaise,
+        currency: 'INR',
+        name: 'IDMA Media',
+        description: `Membership: ${plan.name}`,
+        prefill: {
+          name: user ? `${user.firstName} ${user.lastName}` : '',
+          email: user ? user.email : '',
+          contact: user ? user.mobile : '',
         },
       },
     });

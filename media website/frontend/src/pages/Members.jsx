@@ -527,7 +527,7 @@ export default function Members() {
                     </p>
                   )}
 
-                  <div className="member-badge">IDMFMEDIA</div>
+                  <div className="member-badge">IDMAMEDIA</div>
                 </div>
               </div>
             ))}
