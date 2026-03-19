@@ -88,9 +88,10 @@ const UserSchema = new mongoose.Schema({
     enum: ['pending', 'approved', 'rejected', 'suspended'],
     default: 'pending',
   },
-  membershipStatusReason: {
+  verification_status: {
     type: String,
-    default: '',
+    enum: ['pending', 'verified', 'rejected'],
+    default: 'pending',
   },
   selectedPlan: {
     type: String,

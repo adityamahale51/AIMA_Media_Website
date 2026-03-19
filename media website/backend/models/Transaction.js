@@ -7,8 +7,11 @@ const TransactionSchema = new mongoose.Schema({
     required: true,
   },
   plan: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Plan',
+    type: String, // Plan ID (string)
+    required: true,
+  },
+  plan_name: {
+    type: String,
     required: true,
   },
   amount: {
@@ -16,28 +19,26 @@ const TransactionSchema = new mongoose.Schema({
     required: true,
     min: 0,
   },
-  paymentId: {
+  payment_gateway_id: {
     type: String,
     default: '',
   },
-  invoiceNumber: {
+  invoice_number: {
     type: String,
     unique: true,
     sparse: true,
   },
   status: {
     type: String,
-    enum: ['pending', 'success', 'failed'],
+    enum: ['pending', 'paid', 'failed'],
     default: 'pending',
   },
-  date: {
+  paidAt: {
     type: Date,
-    default: Date.now,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+}, { timestamps: true });
+
+TransactionSchema.index({ user: 1 });
+TransactionSchema.index({ invoice_number: 1 });
 
 module.exports = mongoose.model('Transaction', TransactionSchema);

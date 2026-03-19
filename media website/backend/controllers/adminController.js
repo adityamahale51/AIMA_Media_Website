@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const News = require('../models/News');
+const News = require('../models/NewsArticle');
 const Contact = require('../models/Contact');
 const Transaction = require('../models/Transaction');
 

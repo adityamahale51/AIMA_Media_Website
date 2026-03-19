@@ -11,10 +11,12 @@ const ContactSchema = new mongoose.Schema({
     enum: ['new', 'read'],
     default: 'new',
   },
-  createdAt: {
+  readAt: {
     type: Date,
-    default: Date.now,
-  },
-});
+  }
+}, { timestamps: true });
+
+ContactSchema.index({ email: 1 });
+ContactSchema.index({ status: 1 });
 
 module.exports = mongoose.model('Contact', ContactSchema);

@@ -1,17 +1,23 @@
 const mongoose = require('mongoose');
 
-const NewsSchema = new mongoose.Schema({
+const NewsArticleSchema = new mongoose.Schema({
   title: {
     type: String,
     required: [true, 'Please add a title'],
     trim: true,
+  },
+  slug: {
+    type: String,
+    required: [true, 'Slug is required'],
+    unique: true,
+    lowercase: true,
   },
   content: {
     type: String,
     required: [true, 'Please add content'],
   },
   category: {
-    type: String,
+    type: String, // Keeping as String for now to match old structure, but could be ObjectId ref Category
     default: '',
   },
   state: {
@@ -35,6 +41,9 @@ const NewsSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
+  },
+  authorName: { // Denormalized for performance and compatibility
+    type: String,
   },
   isApproved: {
     type: Boolean,
@@ -65,14 +74,15 @@ const NewsSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  date: {
+  published_at: {
     type: Date,
-    default: Date.now,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+}, { timestamps: true });
 
-module.exports = mongoose.model('News', NewsSchema);
+NewsArticleSchema.index({ slug: 1 });
+NewsArticleSchema.index({ author: 1 });
+NewsArticleSchema.index({ status: 1 });
+NewsArticleSchema.index({ is_featured: 1 });
+NewsArticleSchema.index({ is_trending: 1 });
+
+module.exports = mongoose.model('NewsArticle', NewsArticleSchema);

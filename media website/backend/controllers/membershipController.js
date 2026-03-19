@@ -1,62 +1,37 @@
-const mongoose = require('mongoose');
-const Membership = require('../models/Membership');
-const Plan = require('../models/Plan');
+const MembershipPlan = require('../models/MembershipPlan');
+const Transaction = require('../models/Transaction');
+const User = require('../models/User');
 
-const markExpiredMemberships = async (userId) => {
-  await Membership.updateMany(
-    { user: userId, status: 'active', endDate: { $lt: new Date() } },
-    { $set: { status: 'expired' } }
-  );
-};
-
+// Membership logic is now integrated into User model or handled via Transactions
+// Re-implementing subscribeMembership to use User model fields
 exports.subscribeMembership = async (req, res, next) => {
   try {
     const { planId } = req.body;
     if (!planId) return res.status(400).json({ success: false, message: 'planId is required' });
-    if (!mongoose.Types.ObjectId.isValid(planId)) {
-      return res.status(400).json({ success: false, message: 'Invalid plan id' });
-    }
 
-    await markExpiredMemberships(req.user.id);
-
-    const existingActive = await Membership.findOne({
-      user: req.user.id,
-      status: 'active',
-      endDate: { $gte: new Date() },
-    });
-
-    if (existingActive) {
-      return res.status(400).json({
-        success: false,
-        message: 'You already have an active membership',
-      });
-    }
-
-    const plan = await Plan.findById(planId);
+    const plan = await MembershipPlan.findOne({ id: planId });
     if (!plan || !plan.isActive) {
       return res.status(404).json({ success: false, message: 'Plan not found or inactive' });
     }
+
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ success: false, message: 'User not found' });
 
     const startDate = new Date();
     const endDate = new Date(startDate);
     endDate.setDate(endDate.getDate() + Number(plan.durationInDays));
 
-    const membership = await Membership.create({
-      user: req.user.id,
-      plan: plan._id,
-      startDate,
-      endDate,
-      status: 'active', // payment simulated as successful
-    });
-
-    const populated = await Membership.findById(membership._id)
-      .populate('plan')
-      .populate('user', 'firstName lastName email');
+    user.selectedPlan = plan.id;
+    user.selectedPlanName = plan.name;
+    user.selectedPlanPrice = plan.price;
+    user.membership_expiry = endDate;
+    user.membershipStatus = 'approved'; // Auto-approve for simulation or update based on payment
+    await user.save();
 
     return res.status(201).json({
       success: true,
       message: 'Membership subscribed successfully',
-      data: populated,
+      data: user,
     });
   } catch (err) {
     return next(err);
@@ -65,17 +40,18 @@ exports.subscribeMembership = async (req, res, next) => {
 
 exports.getMyMembership = async (req, res, next) => {
   try {
-    await markExpiredMemberships(req.user.id);
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ success: false, message: 'User not found' });
 
-    const membership = await Membership.findOne({ user: req.user.id })
-      .sort({ createdAt: -1 })
-      .populate('plan');
-
-    if (!membership) {
-      return res.status(404).json({ success: false, message: 'No membership found for user' });
-    }
-
-    return res.status(200).json({ success: true, data: membership });
+    return res.status(200).json({
+      success: true,
+      data: {
+        planId: user.selectedPlan,
+        planName: user.selectedPlanName,
+        expiry: user.membership_expiry,
+        status: user.membershipStatus,
+      }
+    });
   } catch (err) {
     return next(err);
   }
@@ -83,21 +59,11 @@ exports.getMyMembership = async (req, res, next) => {
 
 exports.getAllMemberships = async (req, res, next) => {
   try {
-    // keep statuses fresh whenever admin reads list
-    await Membership.updateMany(
-      { status: 'active', endDate: { $lt: new Date() } },
-      { $set: { status: 'expired' } }
-    );
-
-    const memberships = await Membership.find({})
-      .sort({ createdAt: -1 })
-      .populate('user', 'firstName lastName email role')
-      .populate('plan', 'name price durationInDays isActive');
-
+    const users = await User.find({ selectedPlan: { $ne: '' } }).select('firstName lastName email selectedPlanName membershipStatus membership_expiry');
     return res.status(200).json({
       success: true,
-      count: memberships.length,
-      data: memberships,
+      count: users.length,
+      data: users,
     });
   } catch (err) {
     return next(err);

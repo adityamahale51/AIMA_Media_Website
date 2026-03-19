@@ -12,11 +12,11 @@ const formatDate = (value) => {
 
 const buildMembershipId = async () => {
   for (let i = 0; i < 5; i += 1) {
-    const candidate = `AIMA${Date.now().toString().slice(-7)}${Math.floor(Math.random() * 900 + 100)}`;
+    const candidate = `IDMF${Date.now().toString().slice(-7)}${Math.floor(Math.random() * 900 + 100)}`;
     const exists = await User.findOne({ membershipId: candidate }).select('_id');
     if (!exists) return candidate;
   }
-  return `AIMA${Date.now()}${Math.floor(Math.random() * 1000)}`;
+  return `IDMF${Date.now()}${Math.floor(Math.random() * 1000)}`;
 };
 
 const serializeUser = (user) => {
@@ -117,7 +117,7 @@ exports.login = async (req, res, next) => {
     if (!email || !password) return res.status(400).json({ success: false, message: 'Please provide email and password' });
 
     // allow login by email or mobile
-    const identifier = email;
+    const identifier = email.toLowerCase();
     const user = await User.findOne({ $or: [{ email: identifier }, { mobile: identifier }] }).select('+password');
     if (!user) return res.status(401).json({ success: false, message: 'Invalid credentials' });
     if (!user.isActive) return res.status(403).json({ success: false, message: 'Account is inactive' });

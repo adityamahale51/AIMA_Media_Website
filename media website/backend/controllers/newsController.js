@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
-const News = require('../models/News');
+const News = require('../models/NewsArticle');
 const User = require('../models/User');
 
 // Helper: optionally get requester role (if token present)
