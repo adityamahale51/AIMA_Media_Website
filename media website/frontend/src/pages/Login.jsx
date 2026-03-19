@@ -176,7 +176,12 @@ export default function Login() {
     setLoading(false);
     if (result.success) {
       setAlert({ type: 'success', msg: 'Login successful! Redirecting…' });
-      setTimeout(() => navigate('/dashboard'), 1000);
+      setTimeout(() => {
+        const role = result.user?.role;
+        if (role === 'super_admin') navigate('/super-admin');
+        else if (role === 'admin') navigate('/admin');
+        else navigate('/dashboard');
+      }, 1000);
     } else {
       setAlert({ type: 'error', msg: result.message });
     }

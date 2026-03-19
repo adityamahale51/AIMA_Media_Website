@@ -980,6 +980,7 @@ const NAV_ICONS = {
   '/contact':           <Icon.Mail />,
   '/my-articles':       <Icon.News />,
   '/admin':             <Icon.Shield />,
+  '/super-admin':       <Icon.Shield />,
 };
 
 /* ══════════════════════════════════════════════
@@ -1126,16 +1127,21 @@ function Navbar() {
     { to: '/contact',          label: 'Contact' },
   ];
 
+  const rolePanelLink = user?.role === 'super_admin'
+    ? { to: '/super-admin', label: 'Super Admin Panel' }
+    : user?.role === 'admin'
+      ? { to: '/admin', label: 'Admin Panel' }
+      : { to: '/dashboard', label: 'Dashboard' };
+
   const authLinks = [
     { to: '/',                 label: 'Home' },
-    { to: '/dashboard',        label: 'Dashboard' },
+    rolePanelLink,
     { to: '/about',            label: 'About' },
     { to: '/members',          label: 'Members' },
     { to: '/membership-plans', label: 'Membership' },
     { to: '/gallery',          label: 'Gallery' },
     { to: '/my-articles',      label: 'Articles' },
     { to: '/profile',          label: 'Profile' },
-    ...(user?.role === 'admin' ? [{ to: '/admin', label: 'Admin' }] : []),
   ];
 
   const links = user ? authLinks : publicLinks;

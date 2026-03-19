@@ -1,0 +1,6 @@
+.nw-card{display:flex;gap:12px;background:#fff;padding:12px;border-radius:8px;border:1px solid #e6eef7}
+.nw-thumb{width:140px;height:90px;object-fit:cover;border-radius:6px}
+.nw-body{flex:1}
+.nw-title{margin:0 0 6px;font-size:18px}
+.nw-meta{font-size:12px;color:#7b8b9a;margin-bottom:8px}
+.nw-preview{margin:0;color:#334150}

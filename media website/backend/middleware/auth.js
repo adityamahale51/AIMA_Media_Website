@@ -1,38 +1,35 @@
 const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 const JWT_SECRET = process.env.JWT_SECRET || 'idmf-media-jwt-secret-key-2026-secure';
 
-// Required auth - returns 401 if no token
-const authRequired = (req, res, next) => {
-  const authHeader = req.header('Authorization');
-  const token = authHeader && authHeader.replace('Bearer ', '');
+const createError = (message, statusCode) => {
+  const err = new Error(message);
+  err.statusCode = statusCode;
+  return err;
+};
 
-  if (!token) {
-    return res.status(401).json({ success: false, message: 'No token, authorization denied' });
+exports.protect = async (req, res, next) => {
+  let token;
+
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    token = req.headers.authorization.split(' ')[1];
   }
+
+  if (!token) return next(createError('Not authorized, token missing', 401));
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = decoded;
+    const user = await User.findById(decoded.id).select('-password');
+    if (!user) return next(createError('User not found for this token', 401));
+    if (!user.isActive) return next(createError('Account is inactive', 403));
+    if (user.isBlocked) return next(createError('Account is blocked. Contact support.', 403));
+
+    req.user = user;
     next();
   } catch (err) {
-    return res.status(401).json({ success: false, message: 'Token is not valid or expired' });
+    return next(createError('Not authorized, token invalid', 401));
   }
 };
-
-// Optional auth - attaches user if token exists, continues anyway
-const authOptional = (req, res, next) => {
-  const authHeader = req.header('Authorization');
-  const token = authHeader && authHeader.replace('Bearer ', '');
-
-  if (token) {
-    try {
-      const decoded = jwt.verify(token, JWT_SECRET);
-      req.user = decoded;
-    } catch {
-      // Token invalid, but continue anyway
-    }
-  }
-  next();
-};
-
-module.exports = { authRequired, authOptional };
